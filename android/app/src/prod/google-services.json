@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "740646694290",
+    "project_id": "chammy-1aa13",
+    "storage_bucket": "chammy-1aa13.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740646694290:android:d7e8e6f670db87c060e54b",
+        "android_client_info": {
+          "package_name": "com.tmi.chammy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAc4FGqId7zsvV6JyOlCgpGt7J4KFT7Yrw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740646694290:android:2e2c254f2320441760e54b",
+        "android_client_info": {
+          "package_name": "com.tmi.chammy.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAc4FGqId7zsvV6JyOlCgpGt7J4KFT7Yrw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740646694290:android:2ede69ba42a980fc60e54b",
+        "android_client_info": {
+          "package_name": "com.tmi.chammy.stg"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAc4FGqId7zsvV6JyOlCgpGt7J4KFT7Yrw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

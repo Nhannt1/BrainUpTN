@@ -1,0 +1,76 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "buildConfigurations": {
+          "src/develop": {
+            "projectId": "brain-u",
+            "appId": "1:882332676920:android:7c94bf6909b62ccb9247cd",
+            "fileOutput": "android/app/src/develop/google-services.json"
+          },
+          "src/staging": {
+            "projectId": "brain-u",
+            "appId": "1:882332676920:android:d3ef2264fdeb655e9247cd",
+            "fileOutput": "android/app/src/staging/google-services.json"
+          },
+          "src/production": {
+            "projectId": "brain-u",
+            "appId": "1:882332676920:android:3f65c20ad9b725b99247cd",
+            "fileOutput": "android/app/src/production/google-services.json"
+          }
+        }
+      },
+      "ios": {
+        "buildConfigurations": {
+          "developDebug": {
+            "projectId": "brain-u",
+            "appId": "1:882332676920:ios:0fbcf539c552b7a19247cd",
+            "uploadDebugSymbols": true,
+            "fileOutput": "ios/flavors/develop/GoogleService-Info.plist"
+          },
+          "stagingDebug": {
+            "projectId": "brain-u",
+            "appId": "1:882332676920:ios:b17c4d63af13dad29247cd",
+            "uploadDebugSymbols": true,
+            "fileOutput": "ios/flavors/staging/GoogleService-Info.plist"
+          },
+          "productionDebug": {
+            "projectId": "brain-u",
+            "appId": "1:882332676920:ios:3cfff9e785232d069247cd",
+            "uploadDebugSymbols": true,
+            "fileOutput": "ios/flavors/production/GoogleService-Info.plist"
+          },
+          "developRelease": {
+            "projectId": "brain-u",
+            "appId": "1:882332676920:ios:0fbcf539c552b7a19247cd",
+            "uploadDebugSymbols": true,
+            "fileOutput": "ios/flavors/develop/GoogleService-Info.plist"
+          }
+        }
+      },
+      "dart": {
+        "lib/firebase/firebase_options_dev.dart": {
+          "projectId": "brain-u",
+          "configurations": {
+            "android": "1:882332676920:android:7c94bf6909b62ccb9247cd",
+            "ios": "1:882332676920:ios:0fbcf539c552b7a19247cd"
+          }
+        },
+        "lib/firebase/firebase_options_stg.dart": {
+          "projectId": "brain-u",
+          "configurations": {
+            "android": "1:882332676920:android:d3ef2264fdeb655e9247cd",
+            "ios": "1:882332676920:ios:b17c4d63af13dad29247cd"
+          }
+        },
+        "lib/firebase/firebase_options_prod.dart": {
+          "projectId": "brain-u",
+          "configurations": {
+            "android": "1:882332676920:android:3f65c20ad9b725b99247cd",
+            "ios": "1:882332676920:ios:3cfff9e785232d069247cd"
+          }
+        }
+      }
+    }
+  }
+}
