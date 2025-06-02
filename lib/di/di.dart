@@ -4,11 +4,7 @@ import 'package:brainup/data/mapper/data_response_image_mapper.dart';
 import 'package:brainup/data/mapper/image_inference_mapper.dart';
 import 'package:brainup/data/repository/source/image_inference_repository_impl.dart';
 import 'package:brainup/data/repository/source/local/api/app_database.dart';
-<<<<<<< HEAD
 import 'package:brainup/data/repository/source/local/api/dao/brain_up_dao.dart';
-=======
-import 'package:brainup/data/repository/source/local/api/dao/chammy_inference_dao.dart';
->>>>>>> b5bef1d ([Task] Init project)
 import 'package:brainup/data/repository/source/local/image_inference_local_data_source.dart';
 import 'package:brainup/data/repository/source/local/user_local_data_source.dart';
 import 'package:brainup/data/repository/source/remote/api/auth_api.dart';
@@ -35,15 +31,11 @@ Future<void> setupDependenceInjection() async {
   // 🗂️ 2. Register SharedPreferences, AppDatabase & SecureStorage
   final sharedPreferences = await SharedPreferences.getInstance();
   getIt.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
-  getIt.registerLazySingleton<FlutterSecureStorage>(() => const FlutterSecureStorage());
+  getIt.registerLazySingleton<FlutterSecureStorage>(
+      () => const FlutterSecureStorage());
   getIt.registerLazySingleton<AppDatabase>(() => AppDatabase());
-<<<<<<< HEAD
   getIt.registerLazySingleton<BrainUpDao>(
     () => getIt<AppDatabase>().brainUpDao,
-=======
-  getIt.registerLazySingleton<ChammyInferenceDao>(
-    () => getIt<AppDatabase>().chammyInferenceDao,
->>>>>>> b5bef1d ([Task] Init project)
   );
 
   // 🧠 3. Register local data sources
@@ -54,11 +46,7 @@ Future<void> setupDependenceInjection() async {
     ),
   );
   getIt.registerLazySingleton<ImageInferenceLocalDataSource>(
-<<<<<<< HEAD
     () => ImageInferenceLocalDataSource(getIt<BrainUpDao>()),
-=======
-    () => ImageInferenceLocalDataSource(getIt<ChammyInferenceDao>()),
->>>>>>> b5bef1d ([Task] Init project)
   );
 
   // 🌐 4. Register NoneAuthApi first (used in refresh interceptor)
@@ -89,14 +77,17 @@ Future<void> setupDependenceInjection() async {
   );
 
   // 🔁 7. Register mappers
-  getIt.registerLazySingleton<ImageInferenceMapper>(() => ImageInferenceMapper());
+  getIt.registerLazySingleton<ImageInferenceMapper>(
+      () => ImageInferenceMapper());
   getIt.registerLazySingleton<DataResponseImageMapper>(
     () => DataResponseImageMapper(getIt<ImageInferenceMapper>()),
   );
 
   // 📡 8. Register repository
   getIt.registerLazySingleton<ImageInferenceRepository>(
-    () => ImageRepositoryImpl(getIt<ImageInferenceRemoteDataSource>(), getIt<DataResponseImageMapper>(),
+    () => ImageRepositoryImpl(
+        getIt<ImageInferenceRemoteDataSource>(),
+        getIt<DataResponseImageMapper>(),
         getIt<ImageInferenceLocalDataSource>()),
   );
 }

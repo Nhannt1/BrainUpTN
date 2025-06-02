@@ -2,6 +2,7 @@ import 'package:brainup/di/di.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:brainup/presentation/resources/l10n/app_localizations.dart';
 import 'package:brainup/router/app_router.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupDependenceInjection();
+  await Firebase.initializeApp();
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -33,7 +35,7 @@ class _MyAppState extends ConsumerState<MyApp> {
           routerConfig: appRouter,
           title: 'Flutter Demo',
           theme: ThemeData(
-            scaffoldBackgroundColor: AppColors.backgroundColor,
+            scaffoldBackgroundColor: const Color.fromARGB(255, 247, 248, 250),
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
             useMaterial3: true,
           ),

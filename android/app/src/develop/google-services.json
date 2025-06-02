@@ -12,7 +12,12 @@
           "package_name": "com.tmi.brainup"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "882332676920-67eh4cd7hj7qoc48mli4sl11jgr4stg1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAJLopHraYzmLZfN7rd04E9sYcN90Cjqhw"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "882332676920-67eh4cd7hj7qoc48mli4sl11jgr4stg1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "882332676920-2jglmtnjia6fnhoineebsajg05n6jobv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tmi.brainup.dev"
+              }
+            }
+          ]
         }
       }
     },
@@ -31,7 +48,12 @@
           "package_name": "com.tmi.brainup.dev"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "882332676920-67eh4cd7hj7qoc48mli4sl11jgr4stg1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAJLopHraYzmLZfN7rd04E9sYcN90Cjqhw"
@@ -39,7 +61,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "882332676920-67eh4cd7hj7qoc48mli4sl11jgr4stg1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "882332676920-2jglmtnjia6fnhoineebsajg05n6jobv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tmi.brainup.dev"
+              }
+            }
+          ]
         }
       }
     },
@@ -50,7 +84,12 @@
           "package_name": "com.tmi.brainup.stg"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "882332676920-67eh4cd7hj7qoc48mli4sl11jgr4stg1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAJLopHraYzmLZfN7rd04E9sYcN90Cjqhw"
@@ -58,7 +97,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "882332676920-67eh4cd7hj7qoc48mli4sl11jgr4stg1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "882332676920-2jglmtnjia6fnhoineebsajg05n6jobv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tmi.brainup.dev"
+              }
+            }
+          ]
         }
       }
     }
