@@ -1,4 +1,5 @@
 import 'package:brainup/presentation/pages/login_brain_up/widgets/login_form.dart';
+import 'package:brainup/presentation/pages/login_brain_up/widgets/register_form.dart';
 import 'package:flutter/material.dart';
 
 class LoginBrainUpScreen extends StatefulWidget {
@@ -56,8 +57,8 @@ class _LoginBrainUpScreenState extends State<LoginBrainUpScreen> {
                     ],
                   ),
                   Expanded(
-                      // child: isLogin ? LoginForm() : RegisterForm(),
-                      child: LoginForm()),
+                    child: isLogin ? LoginForm() : RegisterForm(),
+                  )
                 ],
               ),
             ),
