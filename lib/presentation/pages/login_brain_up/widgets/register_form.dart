@@ -11,6 +11,8 @@ class RegisterForm extends StatefulWidget {
 class _RegisterFormState extends State<RegisterForm> {
   @override
   bool _obscuretext = true;
+  bool _reObscuretext = true;
+
   final _formkey = GlobalKey<FormState>();
   final email = TextEditingController();
   final password = TextEditingController();
@@ -60,7 +62,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     // kiểm tra dữ liệu nhập
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'Please enter email';
+                        return 'Please enter your name';
                       }
                       return null;
                     },
@@ -174,7 +176,7 @@ class _RegisterFormState extends State<RegisterForm> {
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide(
                           color: Colors.grey,
-                        ), // khi đang focus vẫn không đỏ
+                        ),
                         //borderRadius: BorderRadius.circular(20),
                       ),
                       prefixIcon: Padding(
@@ -232,7 +234,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   ),
                   TextFormField(
                     controller: repassword,
-                    obscureText: _obscuretext,
+                    obscureText: _reObscuretext,
                     style: TextStyle(fontSize: 11),
                     decoration: InputDecoration(
                       focusedErrorBorder: OutlineInputBorder(
@@ -250,11 +252,11 @@ class _RegisterFormState extends State<RegisterForm> {
                       suffixIcon: GestureDetector(
                         onTap: () {
                           setState(() {
-                            _obscuretext = !_obscuretext;
+                            _reObscuretext = !_reObscuretext;
                           });
                         },
                         child: Icon(
-                          _obscuretext
+                          _reObscuretext
                               ? Icons.visibility_off
                               : Icons.visibility,
                           color: Color(0xFF9CA3AF),
@@ -342,35 +344,35 @@ class _RegisterFormState extends State<RegisterForm> {
                     //   password: password.text,
                     // ); // đăng kí vào firebasestore
 
-                    // if (_formkey.currentState!.validate()) {
-                    //   await authLogin.registerWithEmail(
-                    //     email.text,
-                    //     password.text,
-                    //   );
-                    //   name.clear();
-                    //   email.clear();
-                    //   phone.clear();
-                    //   password.clear();
-                    //   password.clear();
-                    //   repassword.clear();
+                    if (_formkey.currentState!.validate()) {
+                      //   await authLogin.registerWithEmail(
+                      //     email.text,
+                      //     password.text,
+                      //   );
+                      //   name.clear();
+                      //   email.clear();
+                      //   phone.clear();
+                      //   password.clear();
+                      //   password.clear();
+                      //   repassword.clear();
 
-                    //   ScaffoldMessenger.of(context).showSnackBar(
-                    //       SnackBar(content: Text("dang kí thành công ")));
-                    //   if (success) {
-                    //    // await prefs.Login(); // Lưu trạng thái đăng nhập nếu cần
-                    //     if (!mounted) return;
-                    //   //  await prefs.Login();
-                    //    // context.go('/home'); // Chuyển đến trang home
-                    //   } else {
-                    //     if (!mounted) return;
-                    //     ScaffoldMessenger.of(context).showSnackBar(
-                    //       SnackBar(
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //       SnackBar(content: Text("dang kí thành công ")));
+                      //   if (success) {
+                      //    // await prefs.Login(); // Lưu trạng thái đăng nhập nếu cần
+                      //     if (!mounted) return;
+                      //   //  await prefs.Login();
+                      //    // context.go('/home'); // Chuyển đến trang home
+                      //   } else {
+                      //     if (!mounted) return;
+                      //     ScaffoldMessenger.of(context).showSnackBar(
+                      //       SnackBar(
 
-                    //         content: Text("Email hoặc mật khẩu sai"),
-                    //       ),
-                    //     );
-                    //   }
-                    // }
+                      //         content: Text("Email hoặc mật khẩu sai"),
+                      //       ),
+                      //     );
+                      //   }
+                    }
                   },
                   child: Text(
                     "Register",
