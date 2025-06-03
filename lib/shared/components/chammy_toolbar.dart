@@ -34,7 +34,7 @@ class ChammyToolbar extends StatelessWidget {
                 height: iconSize,
               ),
         ),
-        Text(title ?? empty, style: ChammyTextStyles.text16Bold),
+        Text(title ?? empty, style: BrainUpTextStyles.text16Bold),
         IconButton(
           onPressed: onRightIconPress,
           icon: iconRight ??

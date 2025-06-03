@@ -30,7 +30,8 @@ class ChammyGradientButton extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: isEnableButton == true ? colors : [Colors.blueGrey, Colors.grey],
+          colors:
+              isEnableButton == true ? colors : [Colors.blueGrey, Colors.grey],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
@@ -48,7 +49,7 @@ class ChammyGradientButton extends StatelessWidget {
             height: height,
             child: Text(
               text,
-              style: textStyle ?? ChammyTextStyles.text16Bold.copyWith(),
+              style: textStyle ?? BrainUpTextStyles.text16Bold.copyWith(),
               textAlign: TextAlign.center,
             ),
           ),
