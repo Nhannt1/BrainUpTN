@@ -20,7 +20,8 @@ class ImageInferenceLocalDataSource {
     ));
   }
 
-  Future<Map<String, List<ImageInferenceEntity>>> getImageInferencesByDate() async {
+  Future<Map<String, List<ImageInferenceEntity>>>
+      getImageInferencesByDate() async {
     return _dao.getGroupedByDate();
   }
 }

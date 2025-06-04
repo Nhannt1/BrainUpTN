@@ -9,11 +9,15 @@ part 'brain_up_dao.g.dart';
 class BrainUpDao extends DatabaseAccessor<AppDatabase> with _$BrainUpDaoMixin {
   BrainUpDao(super.db);
 
-  Future<void> insertImage(ImageInferenceEntitiesCompanion image) => into(imageInferenceEntities).insert(image);
+  Future<void> insertImage(ImageInferenceEntitiesCompanion image) =>
+      into(imageInferenceEntities).insert(image);
 
   Future<List<ImageInferenceEntity>> getAllImagesSorted() {
     return (select(imageInferenceEntities)
-          ..orderBy([(t) => OrderingTerm(expression: t.createdAt, mode: OrderingMode.desc)]))
+          ..orderBy([
+            (t) =>
+                OrderingTerm(expression: t.createdAt, mode: OrderingMode.desc)
+          ]))
         .get();
   }
 

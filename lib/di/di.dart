@@ -31,7 +31,8 @@ Future<void> setupDependenceInjection() async {
   // 🗂️ 2. Register SharedPreferences, AppDatabase & SecureStorage
   final sharedPreferences = await SharedPreferences.getInstance();
   getIt.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
-  getIt.registerLazySingleton<FlutterSecureStorage>(() => const FlutterSecureStorage());
+  getIt.registerLazySingleton<FlutterSecureStorage>(
+      () => const FlutterSecureStorage());
   getIt.registerLazySingleton<AppDatabase>(() => AppDatabase());
   getIt.registerLazySingleton<BrainUpDao>(
     () => getIt<AppDatabase>().brainUpDao,
@@ -76,14 +77,17 @@ Future<void> setupDependenceInjection() async {
   );
 
   // 🔁 7. Register mappers
-  getIt.registerLazySingleton<ImageInferenceMapper>(() => ImageInferenceMapper());
+  getIt.registerLazySingleton<ImageInferenceMapper>(
+      () => ImageInferenceMapper());
   getIt.registerLazySingleton<DataResponseImageMapper>(
     () => DataResponseImageMapper(getIt<ImageInferenceMapper>()),
   );
 
   // 📡 8. Register repository
   getIt.registerLazySingleton<ImageInferenceRepository>(
-    () => ImageRepositoryImpl(getIt<ImageInferenceRemoteDataSource>(), getIt<DataResponseImageMapper>(),
+    () => ImageRepositoryImpl(
+        getIt<ImageInferenceRemoteDataSource>(),
+        getIt<DataResponseImageMapper>(),
         getIt<ImageInferenceLocalDataSource>()),
   );
 }

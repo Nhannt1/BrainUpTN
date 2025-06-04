@@ -1,11 +1,12 @@
 import 'package:brainup/presentation/pages/genrate_gallery_saver/generate_gallery_saver_page.dart';
+import 'package:brainup/presentation/pages/login/login_page.dart';
 import 'package:brainup/presentation/pages/photo_preview/photo_preview_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
-    initialLocation: GenerateGallerySaverPage.rootLocation,
+    initialLocation: LoginPage.rootLocation,
     routes: [
       GoRoute(
         path: GenerateGallerySaverPage.rootLocation,
@@ -24,7 +25,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: GenerateGallerySaverPage.rootLocation,
         builder: (context, state) => GenerateGallerySaverPage(),
-      )
+      ),
+      GoRoute(
+        path: LoginPage.rootLocation,
+        builder: (context, state) => LoginPage(),
+      ),
     ],
   );
 });
