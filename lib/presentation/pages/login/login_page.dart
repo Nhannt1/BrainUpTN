@@ -1,18 +1,18 @@
-import 'package:brainup/presentation/pages/login_brain_up/widgets/login_form.dart';
+import 'package:brainup/presentation/pages/login/widgets/login_form.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:brainup/presentation/resources/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LoginBrainUpScreen extends StatefulWidget {
-  const LoginBrainUpScreen({super.key});
-  static const rootLocation = '/LoginBrainUpScreen';
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+  static const rootLocation = '/LoginPage';
 
   @override
-  State<LoginBrainUpScreen> createState() => _LoginBrainUpScreenState();
+  State<LoginPage> createState() => _LoginPage();
 }
 
-class _LoginBrainUpScreenState extends State<LoginBrainUpScreen> {
+class _LoginPage extends State<LoginPage> {
   bool isLogin = true;
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _LoginBrainUpScreenState extends State<LoginBrainUpScreen> {
                 'BrAInUp',
                 style: TextStyle(
                   fontSize: 20.sp,
-                  color: Color(0xFF3870EF),
+                  color: AppColors.royalBlue,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -45,10 +45,9 @@ class _LoginBrainUpScreenState extends State<LoginBrainUpScreen> {
             height: 536,
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
-              color: AppColors.ctLogin,
+              color: AppColors.wildSand,
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
-                //  Đổ bóng
                 BoxShadow(
                   color: Colors.grey.shade400,
                   spreadRadius: 2.h,
@@ -98,14 +97,14 @@ Widget _buildTagButton(String text, bool isSelected, onPressed) {
     child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
         decoration: BoxDecoration(
-          color: isSelected ? Color(0xFFEAF1FE) : AppColors.ctLogin,
+          color: isSelected ? AppColors.hawkesBlue : AppColors.wildSand,
           borderRadius: BorderRadius.circular(7),
         ),
         child: Text(
           text,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: isSelected ? Color(0xFF3870EF) : Color(0xFF4B5563),
+            color: isSelected ? AppColors.royalBlue : AppColors.riverBed,
           ),
         )),
   );

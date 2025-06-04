@@ -32,7 +32,10 @@ class _LoginFormState extends State<LoginForm> {
                 children: [
                   Text(
                     "Email",
-                    style: TextStyle(color: Color(0xFF374151), fontSize: 14),
+                    style: TextStyle(
+                        color: AppColors.oxfordBlue,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500),
                   ),
                   SizedBox(
                     height: 12.h,
@@ -43,26 +46,24 @@ class _LoginFormState extends State<LoginForm> {
                       controller: email,
                       style: TextStyle(fontSize: 16.sp),
                       decoration: InputDecoration(
-                          fillColor: AppColors.textField,
+                          fillColor: AppColors.athensGray,
                           filled: true,
                           hintText: 'your@email.com',
                           labelStyle: TextStyle(
-                            color: Colors.black,
+                            color: AppColors.spunPearl,
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.r),
                             borderSide: BorderSide(
-                                color: AppColors.strokeField, width: 0.5.w),
+                                color: AppColors.athensGray1, width: 0.5.w),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.r),
-                            borderSide:
-                                BorderSide(color: Colors.grey, width: 0.5.w),
+                            borderSide: BorderSide(
+                                color: AppColors.athensGray1, width: 0.5.w),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.r),
-                            borderSide:
-                                BorderSide(color: Colors.blue, width: 1.2.w),
                           ),
                           contentPadding:
                               EdgeInsets.symmetric(horizontal: 16.w)),
@@ -83,7 +84,10 @@ class _LoginFormState extends State<LoginForm> {
                 children: [
                   Text(
                     "Password",
-                    style: TextStyle(color: Color(0xFF374151), fontSize: 14.sp),
+                    style: TextStyle(
+                        color: AppColors.oxfordBlue,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500),
                   ),
                   SizedBox(
                     height: 12.h,
@@ -97,22 +101,19 @@ class _LoginFormState extends State<LoginForm> {
                         fontSize: 16.sp,
                       ),
                       decoration: InputDecoration(
-                          fillColor: AppColors.textField,
+                          fillColor: AppColors.athensGray,
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12.r),
                             borderSide: BorderSide(
-                                color: AppColors.strokeField,
-                                width: 0.5.w), // khi đang focus vẫn không đỏ
+                                color: AppColors.athensGray1, width: 0.5.w),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.r),
-                            borderSide:
-                                BorderSide(color: Colors.grey, width: 0.5.w),
+                            borderSide: BorderSide(
+                                color: AppColors.athensGray1, width: 0.5.w),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.r),
-                            borderSide:
-                                BorderSide(color: Colors.blue, width: 1.2.w),
                           ),
                           suffixIcon: GestureDetector(
                             onTap: () {
@@ -124,11 +125,11 @@ class _LoginFormState extends State<LoginForm> {
                               _obscuretext
                                   ? Icons.visibility_off
                                   : Icons.visibility,
-                              color: Color(0xFF9CA3AF),
-                              size: 20, // bạn có thể chỉnh size icon nhỏ lại
+                              color: AppColors.spunPearl,
+                              size: 20,
                             ),
                           ),
-                          labelStyle: TextStyle(color: Colors.black),
+                          labelStyle: TextStyle(color: AppColors.spunPearl),
                           hintText: 'Password',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.r),
@@ -136,15 +137,13 @@ class _LoginFormState extends State<LoginForm> {
                           contentPadding:
                               EdgeInsets.symmetric(horizontal: 16.w)),
                       validator: (value) {
-                        // Kiểm tra trống
                         if (value == null || value.trim().isEmpty) {
                           return 'Please enter password';
                         }
-                        // Kiểm tra độ dài mật khẩu tối thiểu 6 ký tự
                         if (value.length < 6) {
                           return 'Password must be at least 6 characters';
                         }
-                        return null; // hợp lệ
+                        return null;
                       },
                     ),
                   ),
@@ -160,18 +159,18 @@ class _LoginFormState extends State<LoginForm> {
                     onTap: () {},
                     child: Text('Forgot password?',
                         style: TextStyle(
-                            color: Color(0xFF3870EF),
+                            color: AppColors.royalBlue,
                             fontSize: 12.sp,
                             decoration: TextDecoration.underline,
-                            decorationColor: Color(0xFF3870EF),
+                            decorationColor: AppColors.royalBlue,
                             fontWeight: FontWeight.w500)),
                   ),
                   Text(
                     'Login with OTP',
                     style: TextStyle(
-                        color: Color(0xFF374151),
+                        color: AppColors.paleSky,
                         fontSize: 12.sp,
-                        fontWeight: FontWeight.w400),
+                        fontWeight: FontWeight.w500),
                   )
                 ],
               ),
@@ -183,44 +182,18 @@ class _LoginFormState extends State<LoginForm> {
                 height: 52.h,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.btnLogin,
+                    backgroundColor: AppColors.royalBlue,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     elevation: 3,
                   ),
-                  onPressed: () async {
-                    // final bool check = await LoginUser(
-                    //   email: email.text,
-                    //   password: password.text,
-                    // ); // đăng kí vào firebasestore
-
-                    // if (_formkey.currentState!.validate()) {
-                    //   bool success = (await authLogin.signInWithEmail(
-                    //     email.text,
-                    //     password.text,
-                    //   ));
-                    //   if (success) {
-                    //     // await prefs.Login(); // Lưu trạng thái đăng nhập
-                    //     if (!mounted) return;
-                    //     // await prefs.Login();
-                    //     // context.go(HomeBrainUpScreen
-                    //     //     .rootLocation); // Chuyển đến trang home
-                    //   } else {
-                    //     if (!mounted) return;
-                    //     ScaffoldMessenger.of(context).showSnackBar(
-                    //       SnackBar(
-                    //         content: Text("Email hoặc mật khẩu sai"),
-                    //       ),
-                    //     );
-                    //   }
-                    // }
-                  },
+                  onPressed: () async {},
                   child: Text(
                     "Login",
                     style: TextStyle(
                       fontSize: 18.sp,
-                      color: Colors.white,
+                      color: AppColors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -238,8 +211,8 @@ class _LoginFormState extends State<LoginForm> {
                 children: [
                   Expanded(
                     child: Divider(
-                      color: Colors.grey.shade400, // màu gạch mờ
-                      thickness: 0.6.sp, // độ dày
+                      color: Colors.grey.shade400,
+                      thickness: 0.6.sp,
                     ),
                   ),
                   Text(
@@ -247,13 +220,13 @@ class _LoginFormState extends State<LoginForm> {
                     style: TextStyle(
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w500,
-                      color: Colors.grey.shade600, // màu chữ mờ
+                      color: AppColors.grayChateau,
                     ),
                   ),
                   Expanded(
                     child: Divider(
-                      color: Colors.grey.shade400, // màu gạch mờ
-                      thickness: 0.6.sp, // độ dày
+                      color: Colors.grey.shade400,
+                      thickness: 0.6.sp,
                     ),
                   ),
                 ],
@@ -267,32 +240,19 @@ class _LoginFormState extends State<LoginForm> {
                   _buildSocialLoginButton(
                     icon: FaIcon(
                       FontAwesomeIcons.google,
-                      color: AppColors.icGoogle,
+                      color: AppColors.cinnabar,
                       size: 20.sp,
                     ),
-                    onTap: () async {
-                      // final result = await authLogin.signInWithGoogle();
-                      // if (result == null) {
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //       SnackBar(content: Text("dang nhao thanh cong")));
-                      //   if (!context.mounted) return;
-                      //   context.go(HomeBrainUpScreen.rootLocation);
-                      // } else {
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //       SnackBar(content: Text("dang nhap that bai")));
-                      // }
-                    },
+                    onTap: () async {},
                   ),
                   SizedBox(width: 16.w),
                   _buildSocialLoginButton(
                     icon: FaIcon(
                       FontAwesomeIcons.apple,
-                      color: AppColors.icApple,
+                      color: AppColors.ebony,
                       size: 20.sp,
                     ),
-                    onTap: () {
-                      // Đăng nhập Apple
-                    },
+                    onTap: () {},
                   ),
                 ],
               )
@@ -310,11 +270,11 @@ Widget _buildSocialLoginButton(
     onTap: onTap,
     child: Container(
       width: 48.w,
-      height: 48.w,
+      height: 48.h,
       decoration: BoxDecoration(
-        color: AppColors.textField,
+        color: AppColors.athensGray,
         shape: BoxShape.circle,
-        border: Border.all(color: Colors.grey.shade300),
+        border: Border.all(color: AppColors.athensGray1),
       ),
       child: Center(child: icon),
     ),

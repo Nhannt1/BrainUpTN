@@ -35,7 +35,7 @@ class _MyAppState extends ConsumerState<MyApp> {
           routerConfig: appRouter,
           title: 'Flutter Demo',
           theme: ThemeData(
-            scaffoldBackgroundColor: const Color.fromARGB(255, 247, 248, 250),
+            scaffoldBackgroundColor: AppColors.backgroundColor1,
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
             useMaterial3: true,
           ),
