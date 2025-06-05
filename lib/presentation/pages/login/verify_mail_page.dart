@@ -1,4 +1,5 @@
 import 'package:brainup/presentation/pages/login/login_page.dart';
+import 'package:brainup/shared/extensions/context_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
@@ -12,22 +13,14 @@ class VerifyEmailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Xác thực Email'),
-        actions: [
-          InkWell(
-              onTap: () {
-                print("da click");
-                context.go(LoginPage.rootLocation);
-              },
-              child: Icon(Icons.arrow_outward))
-        ],
+        title: Text('Email Verify'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             Text(
-              'A verification email has been sent to your address. Please check and click on the verification link.',
+              context.l10n!.averificationemail,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
@@ -41,7 +34,9 @@ class VerifyEmailPage extends StatelessWidget {
                   );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('You have not verified your email')),
+                    SnackBar(
+                        content:
+                            Text(context.l10n!.youHaveNotVerifiedYourMail)),
                   );
                 }
               },

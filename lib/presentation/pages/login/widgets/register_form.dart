@@ -190,7 +190,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   try {
                     await auth.signUpSaveUser(
                         fullname: nameController.text,
-                        email: emailController.text,
+                        email: emailController.text.trim(),
                         phoneNumber: phoneNumberController.text,
                         password: passwordController.text);
                     context.go(VerifyEmailPage.rootLocation);

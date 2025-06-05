@@ -13,4 +13,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get next => 'Next page';
+
+  @override
+  String get flashcards => '';
+
+  @override
+  String get youHaveNotVerifiedYourMail => 'Bạn chưa xác thực email';
+
+  @override
+  String get averificationemail => 'Email xác minh đã được gửi đến địa chỉ của bạn. Vui lòng kiểm tra và nhấp vào liên kết xác minh.';
 }

@@ -1,5 +1,7 @@
 {
   "@@locale": "vi",
   "appName": "Viet Name word",
-  "next": "Next page"
+  "next": "Next page",
+  "youHaveNotVerifiedYourMail": "Bạn chưa xác thực email",
+  "averificationemail":"Email xác minh đã được gửi đến địa chỉ của bạn. Vui lòng kiểm tra và nhấp vào liên kết xác minh."
 }

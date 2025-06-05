@@ -45,7 +45,9 @@ class AuthLogin {
 
       if (user != null && !user.emailVerified) {
         await user.sendEmailVerification();
+        await FirebaseAuth.instance.signOut();
       }
+      await user!.reload();
       await FirebaseFirestore.instance.collection('users').doc(uid).set({
         'uid': uid,
         'fullname': fullname,

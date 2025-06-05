@@ -13,4 +13,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get next => 'Next';
+
+  @override
+  String get flashcards => '';
+
+  @override
+  String get youHaveNotVerifiedYourMail => 'You have not verified your email';
+
+  @override
+  String get averificationemail => 'A verification email has been sent to your address. Please check and click on the verification link.';
 }
