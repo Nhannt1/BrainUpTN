@@ -1,6 +1,7 @@
-import 'package:brainup/presentation/pages/login/widgets/register_widget.dart';
+import 'package:brainup/data/auth/auth_login.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:brainup/shared/themes/chammy_text_styles.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,13 +15,16 @@ class RegisterForm extends StatefulWidget {
 
 class _RegisterFormState extends State<RegisterForm> {
   @override
+  bool _obscuretext = true;
+  bool _CfObscuretext = true;
   final _formkey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final nameController = TextEditingController();
-  final phoneNumberController = TextEditingController();
-  final repasswordController = TextEditingController();
+  final email = TextEditingController();
+  final password = TextEditingController();
+  final name = TextEditingController();
+  final phone = TextEditingController();
+  final repassword = TextEditingController();
   bool isCheckedIcon = false;
+  final AuthLogin auth = AuthLogin();
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -29,77 +33,318 @@ class _RegisterFormState extends State<RegisterForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          RegisterWidget(
-            label: "Full Name",
-            hintText: "Enter your name",
-            controller: phoneNumberController,
-            isPassword: false,
-            prefixIcon: FontAwesomeIcons.lock,
-            validator: (value) {
-              if (value == null || value.isEmpty)
-                return 'Please enter your name';
-            },
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Full Name",
+                  style: BrainUpTextStyles.text14Bold
+                      .copyWith(color: AppColors.oxfordBlue)),
+              SizedBox(
+                height: 8.h,
+              ),
+              TextFormField(
+                controller: name,
+                style: BrainUpTextStyles.text16Normal
+                    .copyWith(color: AppColors.oxfordBlue),
+                decoration: InputDecoration(
+                  fillColor: AppColors.athensGray,
+                  filled: true,
+                  hintText: 'Enter your name',
+                  hintStyle: BrainUpTextStyles.text16Normal
+                      .copyWith(color: AppColors.spunPearl),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.r),
+                    borderSide:
+                        BorderSide(color: AppColors.athensGray1, width: 0.5.w),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.r),
+                    borderSide: BorderSide(color: AppColors.athensGray1),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.r),
+                    borderSide:
+                        BorderSide(color: AppColors.athensGray1, width: 0.5.w),
+                  ),
+                  prefixIcon: Icon(Icons.person,
+                      size: 20.w, color: AppColors.spunPearl),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.r),
+                    borderSide:
+                        BorderSide(color: AppColors.athensGray1, width: 0.5.w),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Please enter email';
+                  }
+                  if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value.trim())) {
+                    return 'incorrect format your name';
+                  }
+                  return null;
+                },
+              ),
+            ],
           ),
           SizedBox(
             height: 20,
           ),
-          RegisterWidget(
-            label: "Email",
-            hintText: "name@gmail.com",
-            controller: emailController,
-            isPassword: false,
-            prefixIcon: FontAwesomeIcons.lock,
-            validator: (value) {
-              if (value == null || value.isEmpty) return 'Please enter email';
-            },
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Email",
+                style: BrainUpTextStyles.text14Bold
+                    .copyWith(color: AppColors.oxfordBlue),
+              ),
+              SizedBox(
+                height: 8.h,
+              ),
+              TextFormField(
+                controller: email,
+                style: BrainUpTextStyles.text16Normal
+                    .copyWith(color: AppColors.oxfordBlue),
+                decoration: InputDecoration(
+                    fillColor: AppColors.athensGray,
+                    filled: true,
+                    prefixIcon: Icon(Icons.email,
+                        size: 20.sp, color: AppColors.spunPearl),
+                    hintText: 'name@gmail.com',
+                    hintStyle: BrainUpTextStyles.text16Normal
+                        .copyWith(color: AppColors.spunPearl),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.r),
+                      borderSide: BorderSide(
+                          color: AppColors.athensGray1, width: 0.5.w),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.r),
+                      borderSide: BorderSide(
+                          color: AppColors.athensGray1, width: 0.5.w),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.r),
+                      borderSide: BorderSide(color: AppColors.athensGray1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.r),
+                      borderSide: BorderSide(
+                          color: AppColors.athensGray1, width: 0.5.w),
+                    )),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Please enter email';
+                  }
+                  if (!RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$')
+                      .hasMatch(value.trim())) {
+                    return 'incorrect email format';
+                  }
+                  return null;
+                },
+              ),
+            ],
           ),
           SizedBox(
             height: 20.h,
           ),
-          RegisterWidget(
-            label: "Phone Number",
-            hintText: "Enter your phone",
-            controller: phoneNumberController,
-            isPassword: false,
-            prefixIcon: FontAwesomeIcons.lock,
-            validator: (value) {
-              if (value == null || value.isEmpty)
-                return 'Please enter your phone number';
-            },
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Phone Number",
+                style: BrainUpTextStyles.text14Bold
+                    .copyWith(color: AppColors.oxfordBlue),
+              ),
+              SizedBox(
+                height: 8.h,
+              ),
+              TextFormField(
+                controller: phone,
+                style: BrainUpTextStyles.text16Normal
+                    .copyWith(color: AppColors.oxfordBlue),
+                decoration: InputDecoration(
+                    fillColor: AppColors.athensGray,
+                    filled: true,
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(14),
+                      child: FaIcon(FontAwesomeIcons.phone,
+                          size: 17.sp, color: AppColors.spunPearl),
+                    ),
+                    hintText: 'Enter your phone',
+                    hintStyle: BrainUpTextStyles.text16Normal
+                        .copyWith(color: AppColors.spunPearl),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.r),
+                      borderSide: BorderSide(color: AppColors.athensGray1),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16.r),
+                        borderSide: BorderSide(
+                            color: AppColors.athensGray1, width: 0.5.w)),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.r),
+                      borderSide: BorderSide(color: AppColors.athensGray1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.r),
+                      borderSide: BorderSide(
+                          color: AppColors.athensGray1, width: 0.5.w),
+                    )),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Please enter phone';
+                  }
+                  if (!RegExp(r'^0[0-9]{9}$').hasMatch(value.trim())) {
+                    return 'incorrect phone format';
+                  }
+                  return null;
+                },
+              ),
+            ],
           ),
           SizedBox(
             height: 20.h,
           ),
-          RegisterWidget(
-            label: "Password",
-            hintText: "Create a password",
-            controller: passwordController,
-            isPassword: true,
-            prefixIcon: FontAwesomeIcons.lock,
-            validator: (value) {
-              if (value == null || value.isEmpty)
-                return 'Please enter password';
-              if (value.length < 6)
-                return 'Password must be at least 6 characters';
-              return null;
-            },
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Password",
+                style: BrainUpTextStyles.text14Bold
+                    .copyWith(color: AppColors.oxfordBlue),
+              ),
+              SizedBox(
+                height: 8.h,
+              ),
+              TextFormField(
+                controller: password,
+                obscureText: _obscuretext,
+                style: BrainUpTextStyles.text16Normal
+                    .copyWith(color: AppColors.oxfordBlue),
+                decoration: InputDecoration(
+                  fillColor: AppColors.athensGray,
+                  filled: true,
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.r),
+                    borderSide: BorderSide(
+                      color: AppColors.athensGray1,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.r),
+                    borderSide: BorderSide(
+                      color: AppColors.athensGray1,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.r),
+                      borderSide: BorderSide(color: AppColors.athensGray1)),
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.all(14.0),
+                    child: FaIcon(FontAwesomeIcons.lock,
+                        size: 17.sp, color: AppColors.spunPearl),
+                  ),
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _obscuretext = !_obscuretext;
+                      });
+                    },
+                    child: Icon(
+                      _obscuretext ? Icons.visibility_off : Icons.visibility,
+                      color: AppColors.spunPearl,
+                      size: 20.sp,
+                    ),
+                  ),
+                  labelStyle: TextStyle(color: AppColors.spunPearl),
+                  hintText: 'Create a password',
+                  hintStyle: BrainUpTextStyles.text16Normal
+                      .copyWith(color: AppColors.spunPearl),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.r),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Please enter password';
+                  }
+                  if (value.length < 6) {
+                    return 'Password must be at least 6 characters';
+                  }
+                  return null;
+                },
+              ),
+            ],
           ),
           SizedBox(
             height: 20.h,
           ),
-          RegisterWidget(
-            label: "Comfirm Password",
-            hintText: "Create a password",
-            controller: repasswordController,
-            isPassword: true,
-            prefixIcon: FontAwesomeIcons.lock,
-            validator: (value) {
-              if (value == null || value.isEmpty)
-                return 'Please enter password';
-              if (value.length < 6)
-                return 'Password must be at least 6 characters';
-              return null;
-            },
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Confirm Password",
+                style: BrainUpTextStyles.text14Bold
+                    .copyWith(color: AppColors.oxfordBlue),
+              ),
+              SizedBox(
+                height: 8.h,
+              ),
+              TextFormField(
+                controller: repassword,
+                obscureText: _CfObscuretext,
+                style: BrainUpTextStyles.text16Normal
+                    .copyWith(color: AppColors.oxfordBlue),
+                decoration: InputDecoration(
+                  fillColor: AppColors.athensGray,
+                  filled: true,
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.r),
+                    borderSide: BorderSide(color: AppColors.athensGray1),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.r),
+                      borderSide: BorderSide(color: AppColors.athensGray1)),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.r),
+                      borderSide: BorderSide(color: AppColors.athensGray1)),
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.all(14.0),
+                    child: FaIcon(FontAwesomeIcons.lock,
+                        size: 17.sp, color: AppColors.spunPearl),
+                  ),
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _CfObscuretext = !_CfObscuretext;
+                      });
+                    },
+                    child: Icon(
+                      _CfObscuretext ? Icons.visibility_off : Icons.visibility,
+                      color: AppColors.spunPearl,
+                      size: 20.sp,
+                    ),
+                  ),
+                  labelStyle: TextStyle(color: AppColors.spunPearl),
+                  hintText: 'Create a password',
+                  hintStyle: BrainUpTextStyles.text16Normal
+                      .copyWith(color: AppColors.spunPearl),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.r),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Please enter password';
+                  }
+
+                  if (value.length < 6) {
+                    return 'Password must be at least 6 characters';
+                  }
+                  return null;
+                },
+              ),
+            ],
           ),
           SizedBox(
             height: 20.h,
@@ -148,32 +393,59 @@ class _RegisterFormState extends State<RegisterForm> {
           SizedBox(
             height: 20.h,
           ),
-          Container(
-            width: 294.w,
-            height: 60.h,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.r),
-                gradient: LinearGradient(
-                  colors: [
-                    AppColors.cornflowerBlue,
-                    AppColors.cornflowerBlue1,
-                  ],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.grey.shade400,
-                      blurRadius: 3.r,
-                      offset: Offset(0, 2))
-                ]),
-            child: Center(
-              child: Text(
-                "Register",
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  color: AppColors.white,
-                  fontWeight: FontWeight.bold,
+          InkWell(
+            onTap: () async {
+              if (_formkey.currentState!.validate()) {
+                try {
+                  await auth.SignUpSaveUser(
+                      fullname: name.text,
+                      email: email.text,
+                      phoneNumber: phone.text,
+                      password: password.text);
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Đăng ký thành công!')),
+                  );
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == 'email-already-in-use') {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Email đã được sử dụng')),
+                    );
+                  }
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Lỗi đăng ký: $e')),
+                  );
+                }
+              }
+            },
+            child: Container(
+              width: 294.w,
+              height: 60.h,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16.r),
+                  gradient: LinearGradient(
+                    colors: [
+                      AppColors.cornflowerBlue,
+                      AppColors.cornflowerBlue1,
+                    ],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey.shade400,
+                        blurRadius: 3.r,
+                        offset: Offset(0, 2))
+                  ]),
+              child: Center(
+                child: Text(
+                  "Register",
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    color: AppColors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

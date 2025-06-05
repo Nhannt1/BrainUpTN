@@ -7,7 +7,6 @@ class AuthLogin {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // đăng kí tài khoảng bằng gmail
   Future<String?> registerWithEmail(String email, String password) async {
     try {
       await _auth.createUserWithEmailAndPassword(
@@ -20,7 +19,6 @@ class AuthLogin {
     }
   }
 
-  // đăng nhập bằng gmail
   Future<bool> signInWithEmail(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
@@ -29,6 +27,30 @@ class AuthLogin {
       return false;
     } catch (e) {
       return false;
+    }
+  }
+
+  Future<void> SignUpSaveUser({
+    required String email,
+    required String password,
+    required String fullname,
+    required String phoneNumber,
+  }) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      String uid = userCredential.user!.uid;
+      await FirebaseFirestore.instance.collection('users').doc(uid).set({
+        'uid': uid,
+        'fullname': fullname,
+        'email': email,
+        'phoneNumber': phoneNumber,
+        'password': password,
+        'createdAt': Timestamp.now(),
+      });
+      print("save user success");
+    } catch (e) {
+      print('Error save user');
     }
   }
 }
