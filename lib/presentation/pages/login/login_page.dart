@@ -76,12 +76,10 @@ class _LoginPage extends State<LoginPage> {
                         ],
                       ),
                     ),
-                    SingleChildScrollView(
-                      child: Padding(
-                        padding:
-                            EdgeInsets.only(top: 28.h, left: 24.w, right: 24.w),
-                        child: isLogin ? LoginForm() : RegisterForm(),
-                      ),
+                    Padding(
+                      padding:
+                          EdgeInsets.only(top: 28.h, left: 24.w, right: 24.w),
+                      child: isLogin ? LoginForm() : RegisterForm(),
                     ),
                   ],
                 ),
@@ -200,7 +198,7 @@ Widget _buildTagButton(String text, bool isSelected, onPressed) {
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
         decoration: BoxDecoration(
           color: isSelected ? AppColors.hawkesBlue : AppColors.wildSand,
-          borderRadius: BorderRadius.circular(7),
+          borderRadius: BorderRadius.circular(7.r),
         ),
         child: Text(text,
             style: BrainUpTextStyles.text16Bold.copyWith(
