@@ -1,3 +1,4 @@
+import 'package:brainup/presentation/pages/login/widgets/button_widget.dart';
 import 'package:brainup/presentation/pages/login/widgets/login_widget.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:brainup/shared/themes/chammy_text_styles.dart';
@@ -85,21 +86,10 @@ class _LoginFormState extends State<LoginForm> {
               SizedBox(
                 height: 32.h,
               ),
-              SizedBox(
-                width: 302.w,
-                height: 52.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.royalBlue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
-                    elevation: 3,
-                  ),
-                  onPressed: () async {},
-                  child: Text("Login", style: BrainUpTextStyles.text18Bold),
-                ),
-              ),
+              ButtonWidget(
+                text: "Login",
+                ontap: () {},
+              )
             ],
           ),
         ),

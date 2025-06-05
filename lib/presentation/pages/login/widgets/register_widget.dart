@@ -83,18 +83,10 @@ class _RegisterWidget extends State<RegisterWidget> {
             hintStyle: BrainUpTextStyles.text16Normal
                 .copyWith(color: AppColors.spunPearl),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(7.r),
+              borderRadius: BorderRadius.circular(16.r),
             ),
           ),
-          validator: (value) {
-            if (value == null || value.trim().isEmpty) {
-              return 'Please enter password';
-            }
-            if (value.length < 6) {
-              return 'Password must be at least 6 characters';
-            }
-            return null;
-          },
+          validator: widget.validator,
         ),
       ],
     );
