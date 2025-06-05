@@ -1,4 +1,6 @@
+import 'package:brainup/presentation/pages/login/widgets/login_widget.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
+import 'package:brainup/shared/themes/chammy_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,8 +15,8 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   bool _obscuretext = true;
   final _formkey = GlobalKey<FormState>();
-  final email = TextEditingController();
-  final password = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,128 +28,36 @@ class _LoginFormState extends State<LoginForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Email",
-                    style: TextStyle(
-                        color: AppColors.oxfordBlue,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
-                  SizedBox(
-                    height: 50.h,
-                    child: TextFormField(
-                      controller: email,
-                      style: TextStyle(fontSize: 16.sp),
-                      decoration: InputDecoration(
-                          fillColor: AppColors.athensGray,
-                          filled: true,
-                          hintText: 'your@email.com',
-                          labelStyle: TextStyle(
-                            color: AppColors.spunPearl,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.r),
-                            borderSide: BorderSide(
-                                color: AppColors.athensGray1, width: 0.5.w),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.r),
-                            borderSide: BorderSide(
-                                color: AppColors.athensGray1, width: 0.5.w),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.r),
-                          ),
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 16.w)),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Please enter email';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                ],
+              LoginWidget(
+                label: "Email",
+                hintext: "your@gmail.com",
+                isPassword: false,
+                controller: emailController,
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Please enter password';
+                  }
+                  if (value.length < 6) {
+                    return 'Password must be at least 6 characters';
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 20.h),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    "Password",
-                    style: TextStyle(
-                        color: AppColors.oxfordBlue,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
-                  SizedBox(
-                    height: 50.h,
-                    child: TextFormField(
-                      controller: password,
-                      obscureText: _obscuretext,
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                      ),
-                      decoration: InputDecoration(
-                          fillColor: AppColors.athensGray,
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.r),
-                            borderSide: BorderSide(
-                                color: AppColors.athensGray1, width: 0.5.w),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.r),
-                            borderSide: BorderSide(
-                                color: AppColors.athensGray1, width: 0.5.w),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.r),
-                          ),
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _obscuretext = !_obscuretext;
-                              });
-                            },
-                            child: Icon(
-                              _obscuretext
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: AppColors.spunPearl,
-                              size: 20,
-                            ),
-                          ),
-                          labelStyle: TextStyle(color: AppColors.spunPearl),
-                          hintText: 'Password',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.r),
-                          ),
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 16.w)),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Please enter password';
-                        }
-                        if (value.length < 6) {
-                          return 'Password must be at least 6 characters';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                ],
+              LoginWidget(
+                label: "Password",
+                hintext: "Password",
+                isPassword: true,
+                controller: passwordController,
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Please enter password';
+                  }
+                  if (value.length < 6) {
+                    return 'Password must be at least 6 characters';
+                  }
+                  return null;
+                },
               ),
               SizedBox(
                 height: 8.h,
@@ -157,21 +67,19 @@ class _LoginFormState extends State<LoginForm> {
                 children: [
                   GestureDetector(
                     onTap: () {},
-                    child: Text('Forgot password?',
-                        style: TextStyle(
-                            color: AppColors.royalBlue,
-                            fontSize: 12.sp,
-                            decoration: TextDecoration.underline,
-                            decorationColor: AppColors.royalBlue,
-                            fontWeight: FontWeight.w500)),
+                    child: Text(
+                      'Forgot password?',
+                      style: BrainUpTextStyles.text12Normal.copyWith(
+                          color: AppColors.royalBlue,
+                          decoration: TextDecoration.underline,
+                          decorationColor: AppColors.royalBlue,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ),
-                  Text(
-                    'Login with OTP',
-                    style: TextStyle(
-                        color: AppColors.paleSky,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500),
-                  )
+                  Text('Login with OTP',
+                      style: BrainUpTextStyles.text12Normal.copyWith(
+                          color: AppColors.paleSky,
+                          fontWeight: FontWeight.w500))
                 ],
               ),
               SizedBox(
@@ -189,14 +97,7 @@ class _LoginFormState extends State<LoginForm> {
                     elevation: 3,
                   ),
                   onPressed: () async {},
-                  child: Text(
-                    "Login",
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      color: AppColors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  child: Text("Login", style: BrainUpTextStyles.text18Bold),
                 ),
               ),
             ],
@@ -215,14 +116,10 @@ class _LoginFormState extends State<LoginForm> {
                       thickness: 0.6.sp,
                     ),
                   ),
-                  Text(
-                    'Or login with',
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.grayChateau,
-                    ),
-                  ),
+                  Text('Or login with',
+                      style: BrainUpTextStyles.text12Bold.copyWith(
+                          color: AppColors.grayChateau,
+                          fontWeight: FontWeight.w500)),
                   Expanded(
                     child: Divider(
                       color: Colors.grey.shade400,

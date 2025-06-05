@@ -16,10 +16,12 @@ class GenerateGallerySaverPage extends ConsumerStatefulWidget {
   static const rootLocation = "/generateGallerySaverPage";
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _GenerateGallerySaverState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _GenerateGallerySaverState();
 }
 
-class _GenerateGallerySaverState extends ConsumerState<GenerateGallerySaverPage> {
+class _GenerateGallerySaverState
+    extends ConsumerState<GenerateGallerySaverPage> {
   final String today = DateFormat('dd/MM/yyyy').format(DateTime.now());
 
   @override
@@ -45,10 +47,12 @@ class _GenerateGallerySaverState extends ConsumerState<GenerateGallerySaverPage>
 
   Widget _buildImageByDay() {
     return Consumer(builder: (context, ref, child) {
-      final imageFolders = ref.watch(generateGallerySaverViewModelProvider.selectUiState((state) => state.datas));
+      final imageFolders = ref.watch(generateGallerySaverViewModelProvider
+          .selectUiState((state) => state.datas));
       if (imageFolders?.entries.isNotEmpty != true) {
         return Center(
-          child: Text("No images have been created yet.", style: ChammyTextStyles.text14Bold),
+          child: Text("No images have been created yet.",
+              style: BrainUpTextStyles.text14Bold),
         );
       }
       return Padding(
@@ -63,7 +67,7 @@ class _GenerateGallerySaverState extends ConsumerState<GenerateGallerySaverPage>
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: ChammyTextStyles.text14Bold),
+                Text(title, style: BrainUpTextStyles.text14Bold),
                 SizedBox(height: 8.h),
                 GridView.count(
                   crossAxisCount: 3,
@@ -78,7 +82,8 @@ class _GenerateGallerySaverState extends ConsumerState<GenerateGallerySaverPage>
                           PhotoPreviewPage.rootLocation,
                           extra: {
                             PhotoPreviewPage.imageUrlKey: image.imageURL,
-                            PhotoPreviewPage.backgroundColorKey: image.bgColor ?? Assets.images.bg1
+                            PhotoPreviewPage.backgroundColorKey:
+                                image.bgColor ?? Assets.images.bg1
                           },
                         );
                       },
@@ -88,7 +93,9 @@ class _GenerateGallerySaverState extends ConsumerState<GenerateGallerySaverPage>
                           decoration: BoxDecoration(
                             image: image.bgColor?.isNotEmpty == true
                                 ? DecorationImage(
-                                    image: AssetImage(image.bgColor ?? Assets.images.bg1.path), fit: BoxFit.fill)
+                                    image: AssetImage(image.bgColor ??
+                                        Assets.images.bg1.path),
+                                    fit: BoxFit.fill)
                                 : null,
                           ),
                           child: Image.network(
