@@ -60,7 +60,7 @@ class _RegisterWidget extends State<RegisterWidget> {
                 borderRadius: BorderRadius.circular(16.r),
                 borderSide: BorderSide(color: AppColors.athensGray1)),
             prefixIcon: Padding(
-              padding: const EdgeInsets.all(14.0),
+              padding: EdgeInsets.all(14.w),
               child: FaIcon(FontAwesomeIcons.lock,
                   size: 17.sp, color: AppColors.spunPearl),
             ),

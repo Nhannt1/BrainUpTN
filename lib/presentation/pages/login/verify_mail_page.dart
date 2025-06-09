@@ -2,6 +2,7 @@ import 'package:brainup/presentation/pages/login/login_page.dart';
 import 'package:brainup/shared/extensions/context_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class VerifyEmailPage extends StatelessWidget {
@@ -16,14 +17,14 @@ class VerifyEmailPage extends StatelessWidget {
         title: Text('Email Verify'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.w),
         child: Column(
           children: [
             Text(
               context.l10n!.averificationemail,
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             ElevatedButton(
               onPressed: () async {
                 final user = FirebaseAuth.instance.currentUser;
@@ -46,7 +47,7 @@ class VerifyEmailPage extends StatelessWidget {
               onPressed: () async {
                 context.go(LoginPage.rootLocation);
               },
-              child: Text("back to login page"),
+              child: Text("Back to login page"),
             ),
           ],
         ),
