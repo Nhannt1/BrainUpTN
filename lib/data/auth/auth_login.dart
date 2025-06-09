@@ -3,6 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+enum SignInStatus {
+  success,
+  emailNotVerified,
+  wrongCredentials,
+}
+
 class AuthLogin {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -20,14 +26,25 @@ class AuthLogin {
     }
   }
 
-  Future<bool> signInWithEmail(String email, String password) async {
+  Future<SignInStatus> signInWithEmail(String email, String password) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
-      return true;
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      User? user = userCredential.user;
+
+      if (user != null && !user.emailVerified) {
+        await _auth.signOut();
+
+        return SignInStatus.emailNotVerified;
+      }
+      return SignInStatus.success;
     } on FirebaseAuthException catch (e) {
-      return false;
+      if (e.code == 'user-not-found' || e.code == 'wrong-password') {
+        return SignInStatus.wrongCredentials;
+      }
+      return SignInStatus.wrongCredentials;
     } catch (e) {
-      return false;
+      return SignInStatus.wrongCredentials;
     }
   }
 
@@ -45,7 +62,6 @@ class AuthLogin {
 
       if (user != null && !user.emailVerified) {
         await user.sendEmailVerification();
-        await FirebaseAuth.instance.signOut();
       }
       await user!.reload();
       await FirebaseFirestore.instance.collection('users').doc(uid).set({
@@ -73,7 +89,7 @@ class AuthLogin {
     try {
       await googleSignIn.signOut();
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      if (googleUser == null) return 'Người dùng huỷ đăng nhập';
+      if (googleUser == null) return 'User login';
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
@@ -84,7 +100,7 @@ class AuthLogin {
         credential,
       );
       final user = userCredential.user;
-      if (user == null) return 'Không lấy được thông tin người dùng';
+      if (user == null) return 'Could not get user information';
       return null;
     } catch (e) {
       return 'Lỗi: $e';
