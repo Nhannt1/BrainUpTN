@@ -51,12 +51,12 @@ class _LoginWidget extends State<LoginWidget> {
                       BorderSide(color: AppColors.athensGray1, width: 0.5.w),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.r),
+                  borderRadius: BorderRadius.circular(8.r),
                   borderSide:
                       BorderSide(color: AppColors.athensGray1, width: 0.5.w),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.r),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 suffixIcon: widget.isPassword
                     ? GestureDetector(

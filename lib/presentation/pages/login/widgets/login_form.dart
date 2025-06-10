@@ -161,7 +161,17 @@ class _LoginFormState extends State<LoginForm> {
                       color: AppColors.cinnabar,
                       size: 20.sp,
                     ),
-                    onTap: () async {},
+                    onTap: () async {
+                      final result = await auth.signInwithGoogle();
+                      if (result == null) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text('Google login successful!'),
+                        ));
+                      } else {
+                        print(result);
+                      }
+                    },
                   ),
                   SizedBox(width: 16.w),
                   _buildSocialLoginButton(
