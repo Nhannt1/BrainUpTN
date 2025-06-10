@@ -1,4 +1,4 @@
-import 'package:brainup/presentation/pages/home/widgets/popup_widget.dart';
+import 'package:brainup/presentation/pages/home/widgets/popup_welcome.dart';
 import 'package:brainup/presentation/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,12 +16,22 @@ class Home extends StatefulWidget {
 class _Home extends State<Home> {
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      showDialog(
-        context: context,
-        builder: (context) => const PopupWidget(),
-      );
-    });
+    _checkAndShowPopup();
+  }
+
+  Future<void> _checkAndShowPopup() async {
+    final prefs = await SharedPreferences.getInstance();
+    final hasShown = prefs.getBool('hasShownWelcomePopup') ?? false;
+
+    if (!hasShown) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showDialog(
+          context: context,
+          builder: (context) => PopupWelcome(),
+        );
+      });
+      prefs.setBool('hasShownWelcomePopup', true);
+    }
   }
 
   @override
