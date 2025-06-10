@@ -106,6 +106,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Next'**
   String get next;
+
+  /// No description provided for @flashcards.
+  ///
+  /// In en, this message translates to:
+  /// **''**
+  String get flashcards;
+
+  /// No description provided for @youHaveNotVerifiedYourMail.
+  ///
+  /// In en, this message translates to:
+  /// **'You have not verified your email'**
+  String get youHaveNotVerifiedYourMail;
+
+  /// No description provided for @averificationemail.
+  ///
+  /// In en, this message translates to:
+  /// **'A verification email has been sent to your address. Please check and click on the verification link.'**
+  String get averificationemail;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

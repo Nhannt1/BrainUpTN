@@ -1,3 +1,4 @@
+import 'package:brainup/presentation/pages/login/widgets/bottom_register.dart';
 import 'package:brainup/presentation/pages/login/widgets/login_form.dart';
 import 'package:brainup/presentation/pages/login/widgets/register_form.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
@@ -87,108 +88,13 @@ class _LoginPage extends State<LoginPage> {
               SizedBox(
                 height: 32,
               ),
-              if (!isLogin)
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Divider(
-                              color: Colors.grey.shade400, thickness: 0.6.sp),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 32.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _buildSocialLoginButton(
-                            icon: FaIcon(
-                              FontAwesomeIcons.google,
-                              color: AppColors.cinnabar,
-                              size: 17.sp,
-                            ),
-                            text: "Google",
-                            onTap: () {},
-                          ),
-                          SizedBox(width: 16.w),
-                          _buildSocialLoginButton(
-                            icon: FaIcon(
-                              FontAwesomeIcons.apple,
-                              color: AppColors.ebony,
-                              size: 17.sp,
-                            ),
-                            text: "Apple",
-                            onTap: () {},
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 32.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Already have an account?",
-                              style: TextStyle(color: AppColors.riverBed)),
-                          SizedBox(
-                            width: 3.w,
-                          ),
-                          Text(
-                            "Sign In",
-                            style: TextStyle(color: AppColors.cornflowerBlue),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                )
+              if (!isLogin) BottomRegister()
             ],
           ),
         ),
       )),
     );
   }
-}
-
-Widget _buildSocialLoginButton({
-  required Widget icon,
-  required String text,
-  required VoidCallback onTap,
-}) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Container(
-      height: 58,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: AppColors.athensGray1),
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 45.w,
-        ),
-        child: Center(
-          child: Center(
-            child: Row(
-              children: [
-                icon,
-                SizedBox(
-                  width: 2.w,
-                ),
-                Text(
-                  text,
-                  style: TextStyle(fontWeight: FontWeight.w500),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    ),
-  );
 }
 
 Widget _buildTagButton(String text, bool isSelected, onPressed) {

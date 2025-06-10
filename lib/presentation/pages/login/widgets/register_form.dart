@@ -1,9 +1,14 @@
+import 'package:brainup/data/auth/auth_login.dart';
+import 'package:brainup/presentation/pages/login/verify_mail_page.dart';
+import 'package:brainup/presentation/pages/login/widgets/button_widget.dart';
 import 'package:brainup/presentation/pages/login/widgets/register_widget.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:brainup/shared/themes/chammy_text_styles.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -21,6 +26,17 @@ class _RegisterFormState extends State<RegisterForm> {
   final phoneNumberController = TextEditingController();
   final repasswordController = TextEditingController();
   bool isCheckedIcon = false;
+  final AuthLogin auth = AuthLogin();
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    nameController.dispose();
+    phoneNumberController.dispose();
+    repasswordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -32,18 +48,23 @@ class _RegisterFormState extends State<RegisterForm> {
           RegisterWidget(
             label: "Full Name",
             hintText: "Enter your name",
-            controller: phoneNumberController,
+            controller: nameController,
             isPassword: false,
             prefixIcon: FontAwesomeIcons.lock,
             validator: (value) {
               if (value == null || value.isEmpty)
                 return 'Please enter your name';
+
+              if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value.trim())) {
+                return 'Incorrect format';
+              }
             },
           ),
           SizedBox(
             height: 20,
           ),
           RegisterWidget(
+            //   key: _formkey,
             label: "Email",
             hintText: "name@gmail.com",
             controller: emailController,
@@ -51,6 +72,10 @@ class _RegisterFormState extends State<RegisterForm> {
             prefixIcon: FontAwesomeIcons.lock,
             validator: (value) {
               if (value == null || value.isEmpty) return 'Please enter email';
+              if (!RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$')
+                  .hasMatch(value.trim())) {
+                return 'Incorrect format';
+              }
             },
           ),
           SizedBox(
@@ -65,6 +90,9 @@ class _RegisterFormState extends State<RegisterForm> {
             validator: (value) {
               if (value == null || value.isEmpty)
                 return 'Please enter your phone number';
+              if (!RegExp(r'^0[0-9]{9}$').hasMatch(value.trim())) {
+                return 'Incorrect format';
+              }
             },
           ),
           SizedBox(
@@ -148,35 +176,50 @@ class _RegisterFormState extends State<RegisterForm> {
           SizedBox(
             height: 20.h,
           ),
-          Container(
-            width: 294.w,
-            height: 60.h,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.r),
-                gradient: LinearGradient(
-                  colors: [
-                    AppColors.cornflowerBlue,
-                    AppColors.cornflowerBlue1,
-                  ],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.grey.shade400,
-                      blurRadius: 3.r,
-                      offset: Offset(0, 2))
-                ]),
-            child: Center(
-              child: Text(
-                "Register",
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  color: AppColors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+          ButtonWidget(
+            text: "Register",
+            ontap: () async {
+              if (_formkey.currentState!.validate()) {
+                if (!isCheckedIcon) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Please agree to the terms')),
+                  );
+                  return;
+                }
+                if (passwordController.text == repasswordController.text) {
+                  try {
+                    await auth.signUpSaveUser(
+                        fullname: nameController.text,
+                        email: emailController.text.trim(),
+                        phoneNumber: phoneNumberController.text,
+                        password: passwordController.text);
+                    context.go(VerifyEmailPage.rootLocation);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Registered successfully!')),
+                    );
+                  } on FirebaseAuthException catch (e) {
+                    if (e.code == 'email-already-in-use') {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Email already in use')),
+                      );
+                    }
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Lỗi đăng ký: $e')),
+                    );
+                  }
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Passwords do not match')),
+                  );
+                }
+                nameController.clear();
+                emailController.clear();
+                phoneNumberController.clear();
+                passwordController.clear();
+                repasswordController.clear();
+              }
+            },
           ),
           SizedBox(
             height: 20.h,

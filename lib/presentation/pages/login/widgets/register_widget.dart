@@ -60,7 +60,7 @@ class _RegisterWidget extends State<RegisterWidget> {
                 borderRadius: BorderRadius.circular(16.r),
                 borderSide: BorderSide(color: AppColors.athensGray1)),
             prefixIcon: Padding(
-              padding: const EdgeInsets.all(14.0),
+              padding: EdgeInsets.all(14.w),
               child: FaIcon(FontAwesomeIcons.lock,
                   size: 17.sp, color: AppColors.spunPearl),
             ),
@@ -83,18 +83,10 @@ class _RegisterWidget extends State<RegisterWidget> {
             hintStyle: BrainUpTextStyles.text16Normal
                 .copyWith(color: AppColors.spunPearl),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(7.r),
+              borderRadius: BorderRadius.circular(16.r),
             ),
           ),
-          validator: (value) {
-            if (value == null || value.trim().isEmpty) {
-              return 'Please enter password';
-            }
-            if (value.length < 6) {
-              return 'Password must be at least 6 characters';
-            }
-            return null;
-          },
+          validator: widget.validator,
         ),
       ],
     );
