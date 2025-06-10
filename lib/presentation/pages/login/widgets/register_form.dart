@@ -61,7 +61,7 @@ class _RegisterFormState extends State<RegisterForm> {
             },
           ),
           SizedBox(
-            height: 20,
+            height: 20.h,
           ),
           RegisterWidget(
             //   key: _formkey,
@@ -205,7 +205,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     }
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Lỗi đăng ký: $e')),
+                      SnackBar(content: Text('Registration error: $e')),
                     );
                   }
                 } else {

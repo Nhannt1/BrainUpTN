@@ -1,21 +1,13 @@
 import 'package:brainup/presentation/pages/genrate_gallery_saver/generate_gallery_saver_page.dart';
-<<<<<<< HEAD
 import 'package:brainup/presentation/pages/login/login_page.dart';
 import 'package:brainup/presentation/pages/login/verify_mail_page.dart';
-=======
-import 'package:brainup/presentation/pages/login_brain_up/login_brain_up_screen.dart';
->>>>>>> 87dbf0f ([Tassk] Create ui login)
 import 'package:brainup/presentation/pages/photo_preview/photo_preview_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
-<<<<<<< HEAD
     initialLocation: LoginPage.rootLocation,
-=======
-    initialLocation: LoginBrainUpScreen.rootLocation,
->>>>>>> 87dbf0f ([Tassk] Create ui login)
     routes: [
       GoRoute(
         path: GenerateGallerySaverPage.rootLocation,
@@ -36,7 +28,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => GenerateGallerySaverPage(),
       ),
       GoRoute(
-<<<<<<< HEAD
         path: LoginPage.rootLocation,
         builder: (context, state) => LoginPage(),
       ),
@@ -44,35 +35,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: VerifyEmailPage.rootLocation,
         builder: (context, state) => VerifyEmailPage(),
       ),
-=======
-        path: LoginBrainUpScreen.rootLocation,
-        builder: (context, state) => LoginBrainUpScreen(),
-      ),
-      // GoRoute(
-      //   path: HomeBrainUpScreen.rootLocation,
-      //   builder: (context, state) => HomeBrainUpScreen(),
-      // ),
-      // GoRoute(
-      //   path: ChatAiScreen.rootLocation,
-      //   builder: (context, state) => ChatAiScreen(),
-      // ),
-      // GoRoute(
-      //   path: SmartAiQuizz.rootLocation,
-      //   builder: (context, state) => SmartAiQuizz(),
-      // ),
-      // GoRoute(
-      //   path: QuizzRoomScreen.rootLocation,
-      //   builder: (context, state) => QuizzRoomScreen(),
-      // ),
-      // GoRoute(
-      //   path: QuestionAi.rootLocation,
-      //   builder: (context, state) => QuestionAi(),
-      // ),
-      // GoRoute(
-      //   path: ProfileScreen.rootLocation,
-      //   builder: (context, state) => ProfileScreen(),
-      // )
->>>>>>> 87dbf0f ([Tassk] Create ui login)
     ],
   );
 });

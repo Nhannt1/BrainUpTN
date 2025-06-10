@@ -19,7 +19,7 @@ class ButtonWidget extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.r),
           ),
-          elevation: 3,
+          elevation: 3.r,
         ),
         onPressed: ontap,
         child: Text(text, style: BrainUpTextStyles.text18Bold),

@@ -10,7 +10,6 @@
     <color name="cranberry">#D951A5</color>
     <color name="cornflower_blue">#6E7BFC</color>
     <color name="heliotrope">#B24CF3</color>
-<<<<<<< HEAD
     <color name="gray_chateau">#9CA3AF</color>
     <color name="wild_sand">#F5F5F5</color>
     <color name="royal_blue">#3870EF</color>
@@ -23,8 +22,4 @@
     <color name="oxford_blue">#374151</color>
     <color name="river_bed">#4B5563</color>
     <color name="pale_sky">#6B7280</color>
-=======
-    <color name="Gray_Chateau">#9CA3AF</color>
->>>>>>> 87dbf0f ([Tassk] Create ui login)
 </resources>
-

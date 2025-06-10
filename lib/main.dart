@@ -11,11 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupDependenceInjection();
-<<<<<<< HEAD
   await Firebase.initializeApp();
-=======
- await Firebase.initializeApp();
->>>>>>> 87dbf0f ([Tassk] Create ui login)
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -39,11 +35,7 @@ class _MyAppState extends ConsumerState<MyApp> {
           routerConfig: appRouter,
           title: 'Flutter Demo',
           theme: ThemeData(
-<<<<<<< HEAD
             scaffoldBackgroundColor: AppColors.backgroundColor1,
-=======
-            scaffoldBackgroundColor: const Color.fromARGB(255, 247, 248, 250),
->>>>>>> 87dbf0f ([Tassk] Create ui login)
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
             useMaterial3: true,
           ),
