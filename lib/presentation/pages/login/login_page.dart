@@ -86,7 +86,7 @@ class _LoginPage extends State<LoginPage> {
                 ),
               ),
               SizedBox(
-                height: 32,
+                height: 32.h,
               ),
               if (!isLogin) BottomRegister()
             ],

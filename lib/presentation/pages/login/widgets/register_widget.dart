@@ -26,6 +26,7 @@ class RegisterWidget extends StatefulWidget {
 
 class _RegisterWidget extends State<RegisterWidget> {
   bool _obscureText = true;
+  final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Column(

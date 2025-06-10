@@ -37,9 +37,7 @@ class _LoginWidget extends State<LoginWidget> {
         SizedBox(
           height: 12.h,
         ),
-        SizedBox(
-          height: 50.h,
-          child: TextFormField(
+        TextFormField(
             controller: widget.controller,
             obscureText: widget.isPassword ? _obscuretext : false,
             style: TextStyle(
@@ -53,12 +51,12 @@ class _LoginWidget extends State<LoginWidget> {
                       BorderSide(color: AppColors.athensGray1, width: 0.5.w),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.r),
+                  borderRadius: BorderRadius.circular(12.r),
                   borderSide:
                       BorderSide(color: AppColors.athensGray1, width: 0.5.w),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.r),
+                  borderRadius: BorderRadius.circular(12.r),
                 ),
                 suffixIcon: widget.isPassword
                     ? GestureDetector(
@@ -85,17 +83,7 @@ class _LoginWidget extends State<LoginWidget> {
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 contentPadding: EdgeInsets.symmetric(horizontal: 16.w)),
-            validator: (value) {
-              if (value == null || value.trim().isEmpty) {
-                return 'Please enter password';
-              }
-              if (value.length < 6) {
-                return 'Password must be at least 6 characters';
-              }
-              return null;
-            },
-          ),
-        ),
+            validator: widget.validator),
       ],
     );
   }

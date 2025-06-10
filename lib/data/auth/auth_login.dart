@@ -89,7 +89,7 @@ class AuthLogin {
     try {
       await googleSignIn.signOut();
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      if (googleUser == null) return 'User login';
+      if (googleUser == null) return 'Người dùng huỷ đăng nhập';
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
@@ -100,7 +100,7 @@ class AuthLogin {
         credential,
       );
       final user = userCredential.user;
-      if (user == null) return 'Could not get user information';
+      if (user == null) return 'Không lấy được thông tin người dùng';
       return null;
     } catch (e) {
       return 'Lỗi: $e';

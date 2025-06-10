@@ -1,3 +1,4 @@
+import 'package:brainup/data/auth/auth_login.dart';
 import 'package:brainup/presentation/pages/login/widgets/button_widget.dart';
 import 'package:brainup/presentation/pages/login/widgets/login_widget.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
@@ -14,10 +15,10 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  bool _obscuretext = true;
   final _formkey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final AuthLogin auth = AuthLogin();
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +37,9 @@ class _LoginFormState extends State<LoginForm> {
                 controller: emailController,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Please enter password';
+                    return 'Please enter your email';
                   }
-                  if (value.length < 6) {
-                    return 'Password must be at least 6 characters';
-                  }
+
                   return null;
                 },
               ),
@@ -88,7 +87,39 @@ class _LoginFormState extends State<LoginForm> {
               ),
               ButtonWidget(
                 text: "Login",
-                ontap: () {},
+                ontap: () async {
+                  if (_formkey.currentState!.validate()) {
+                    SignInStatus result = await auth.signInWithEmail(
+                        emailController.text.trim(),
+                        passwordController.text.trim());
+
+                    if (!mounted) return;
+                    switch (result) {
+                      case SignInStatus.success:
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Login successful!")),
+                        );
+                        emailController.clear();
+                        passwordController.clear();
+                        break;
+
+                      case SignInStatus.emailNotVerified:
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text(
+                                  "⚠️ Please verify your email before logging in.")),
+                        );
+                        break;
+
+                      case SignInStatus.wrongCredentials:
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text("❌ Incorrect email or password.")),
+                        );
+                        break;
+                    }
+                  }
+                },
               )
             ],
           ),
