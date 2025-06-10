@@ -1,4 +1,6 @@
 import 'package:brainup/data/auth/auth_login.dart';
+import 'package:brainup/data/repository/source/local/preference/share_pref_login.dart';
+import 'package:brainup/presentation/pages/home/home_page.dart';
 import 'package:brainup/presentation/pages/login/widgets/button_widget.dart';
 import 'package:brainup/presentation/pages/login/widgets/login_widget.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
@@ -6,6 +8,7 @@ import 'package:brainup/shared/themes/chammy_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -96,6 +99,8 @@ class _LoginFormState extends State<LoginForm> {
                     if (!mounted) return;
                     switch (result) {
                       case SignInStatus.success:
+                        await SharePrefLogin.instance.saveLogin();
+                        context.go(Home.rootLocation);
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("Login successful!")),
                         );
@@ -164,6 +169,8 @@ class _LoginFormState extends State<LoginForm> {
                     onTap: () async {
                       final result = await auth.signInwithGoogle();
                       if (result == null) {
+                        await SharePrefLogin.instance.saveLogin();
+                        context.go(Home.rootLocation);
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
                           content: Text('Google login successful!'),
