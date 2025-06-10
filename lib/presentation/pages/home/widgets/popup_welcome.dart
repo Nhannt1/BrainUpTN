@@ -3,14 +3,14 @@ import 'package:brainup/shared/themes/chammy_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class PopupWidget extends StatefulWidget {
-  const PopupWidget({super.key});
+class PopupWelcome extends StatefulWidget {
+  const PopupWelcome({super.key});
 
   @override
-  State<PopupWidget> createState() => _PopupWidgetState();
+  State<PopupWelcome> createState() => _PopupWelcomeState();
 }
 
-class _PopupWidgetState extends State<PopupWidget> {
+class _PopupWelcomeState extends State<PopupWelcome> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
