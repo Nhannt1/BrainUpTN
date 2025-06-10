@@ -22,7 +22,7 @@ class AuthLogin {
     } on FirebaseException catch (e) {
       return e.message;
     } catch (e) {
-      return 'Đã xảy ra lỗi ';
+      return 'An error has occurred ';
     }
   }
 
