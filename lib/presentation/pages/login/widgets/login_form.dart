@@ -1,5 +1,6 @@
 import 'package:brainup/data/auth/auth_login.dart';
-import 'package:brainup/data/repository/source/local/preference/share_pref_login.dart';
+import 'package:brainup/data/repository/source/local/user_local_data_source.dart';
+import 'package:brainup/di/di.dart';
 import 'package:brainup/presentation/pages/home/home_page.dart';
 import 'package:brainup/presentation/pages/login/widgets/button_widget.dart';
 import 'package:brainup/presentation/pages/login/widgets/login_widget.dart';
@@ -22,7 +23,7 @@ class _LoginFormState extends State<LoginForm> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final AuthLogin auth = AuthLogin();
-
+  final UserLocalDataSource userLocal = getIt<UserLocalDataSource>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -99,7 +100,7 @@ class _LoginFormState extends State<LoginForm> {
                     if (!mounted) return;
                     switch (result) {
                       case SignInStatus.success:
-                        await SharePrefLogin.instance.saveLogin();
+                        await userLocal.saveHasLogin(hasLogin: true);
                         context.go(Home.rootLocation);
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("Login successful!")),
@@ -169,7 +170,7 @@ class _LoginFormState extends State<LoginForm> {
                     onTap: () async {
                       final result = await auth.signInwithGoogle();
                       if (result == null) {
-                        await SharePrefLogin.instance.saveLogin();
+                        await userLocal.saveHasLogin(hasLogin: true);
                         context.go(Home.rootLocation);
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(

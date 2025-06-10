@@ -64,7 +64,6 @@ class _RegisterFormState extends State<RegisterForm> {
             height: 20.h,
           ),
           RegisterWidget(
-            //   key: _formkey,
             label: "Email",
             hintText: "name@gmail.com",
             controller: emailController,

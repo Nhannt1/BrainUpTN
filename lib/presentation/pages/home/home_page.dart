@@ -1,10 +1,9 @@
-import 'package:brainup/data/repository/source/local/preference/share_pref_login.dart';
 import 'package:brainup/presentation/pages/home/widgets/popup_widget.dart';
-import 'package:brainup/presentation/pages/home/widgets/user_header.dart';
 import 'package:brainup/presentation/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -30,12 +29,7 @@ class _Home extends State<Home> {
     return Scaffold(
       body: SafeArea(
           child: Column(
-        children: [
-          UserHeader(),
-          SizedBox(
-            height: 12,
-          ),
-        ],
+        children: [],
       )),
     );
   }
