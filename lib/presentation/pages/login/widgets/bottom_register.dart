@@ -1,9 +1,13 @@
 import 'package:brainup/data/auth/auth_login.dart';
+import 'package:brainup/data/repository/source/local/user_local_data_source.dart';
+import 'package:brainup/di/di.dart';
+import 'package:brainup/presentation/pages/home/home_page.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class BottomRegister extends StatefulWidget {
   const BottomRegister({super.key});
@@ -14,6 +18,7 @@ class BottomRegister extends StatefulWidget {
 
 class _BottomRegisterState extends State<BottomRegister> {
   final AuthLogin auth = AuthLogin();
+  final UserLocalDataSource userLocal = getIt<UserLocalDataSource>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -40,6 +45,8 @@ class _BottomRegisterState extends State<BottomRegister> {
                 onTap: () async {
                   final result = await auth.signInwithGoogle();
                   if (result == null) {
+                    await userLocal.saveHasLogin(hasLogin: true);
+                    context.go(Home.rootLocation);
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('✅ Đăng nhập Google thành công!'),
                     ));

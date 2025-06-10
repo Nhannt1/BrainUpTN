@@ -1,3 +1,4 @@
+import 'package:brainup/presentation/pages/home/home_page.dart';
 import 'package:brainup/presentation/pages/login/login_page.dart';
 import 'package:brainup/shared/extensions/context_ext.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,9 @@ class VerifyEmailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Email Verify'),
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.arrow_forward))
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.all(16.w),
