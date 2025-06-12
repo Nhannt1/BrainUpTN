@@ -1,4 +1,6 @@
+import 'package:brainup/presentation/pages/home/widgets/group_card.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
+import 'package:brainup/shared/extensions/context_ext.dart';
 import 'package:brainup/shared/themes/chammy_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,11 +19,11 @@ class SelectGroup extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Your Groups",
+              Text(context.l10n!.yourgroups,
                   style: BrainUpTextStyles.text16Bold.copyWith(
                       color: AppColors.black, fontWeight: FontWeight.w500)),
               Text(
-                "View All",
+                context.l10n!.viewall,
                 style: BrainUpTextStyles.text12Bold.copyWith(
                   color: AppColors.cornflowerBlue,
                 ),
@@ -29,24 +31,24 @@ class SelectGroup extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 8),
+        SizedBox(height: 8.h),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Row(
             children: [
               GroupCard(
                 icon: FontAwesomeIcons.flask,
-                title: "Biology",
+                title: context.l10n!.biology,
                 textColor: AppColors.salem,
                 subtitle: "12 members",
                 backgroundColor: [AppColors.feta, AppColors.iceCold],
                 iconColor: AppColors.salem,
               ),
-              SizedBox(width: 12),
+              SizedBox(width: 12.w),
               GroupCard(
                 icon: FontAwesomeIcons.calculator,
-                title: "Math Study",
+                title: context.l10n!.mathstudy,
                 textColor: AppColors.amroonFlush,
                 subtitle: "8 members",
                 backgroundColor: [
@@ -55,10 +57,10 @@ class SelectGroup extends StatelessWidget {
                 ],
                 iconColor: AppColors.amroonFlush,
               ),
-              SizedBox(width: 12),
+              SizedBox(width: 12.w),
               GroupCard(
                 icon: FontAwesomeIcons.book,
-                title: "Literature",
+                title: context.l10n!.literature,
                 textColor: AppColors.richGold,
                 subtitle: "5 members",
                 backgroundColor: [AppColors.orangeWhite, AppColors.dolly],
@@ -68,68 +70,6 @@ class SelectGroup extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class GroupCard extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String subtitle;
-  final List<Color> backgroundColor;
-  final Color iconColor;
-  final Color textColor;
-
-  const GroupCard({
-    super.key,
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-    required this.backgroundColor,
-    required this.iconColor,
-    required this.textColor,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 100,
-      padding: EdgeInsets.all(12.h),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: backgroundColor,
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-        ),
-        borderRadius: BorderRadius.circular(8.r),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.athensGray1,
-            blurRadius: 3.r,
-            offset: Offset(0.r, 2.r),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: iconColor, size: 24.sp),
-          SizedBox(
-            height: 8.h,
-          ),
-          Text(
-            title,
-            style: BrainUpTextStyles.text12Bold.copyWith(color: textColor),
-            textAlign: TextAlign.center,
-          ),
-          Text(
-            subtitle,
-            style: BrainUpTextStyles.text10Normal
-                .copyWith(color: AppColors.paleSky),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
     );
   }
 }

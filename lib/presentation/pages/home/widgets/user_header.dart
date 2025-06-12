@@ -19,7 +19,7 @@ class UserHeader extends StatelessWidget {
         border: Border.all(color: AppColors.athensGray1),
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
         child: Row(
           children: [
             InkWell(

@@ -15,7 +15,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get next => 'Next page';
 
   @override
-  String get flashcards => '';
+  String get flashcards => 'Flashcards';
 
   @override
   String get enteryourname => 'Nhập tên của bạn';
@@ -100,4 +100,55 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get averificationemail => 'Email xác minh đã được gửi đến địa chỉ của bạn. Vui lòng kiểm tra và nhấp vào liên kết xác minh.';
+
+  @override
+  String get yourgroups => 'Nhóm của bạn';
+
+  @override
+  String get viewall => 'Xem tất cả';
+
+  @override
+  String get achievements => 'Thành tựu';
+
+  @override
+  String get welcometobrAInUp => 'Chào mừng đến với BrAInUp!';
+
+  @override
+  String get personalizeyourlearning => 'Cá nhân hóa hành trình học tập của bạn với AI, câu đố, thẻ ghi nhớ và bạn bè. Sẵn sàng để nâng cấp?';
+
+  @override
+  String get getstarted => 'Bắt đầu';
+
+  @override
+  String get airecommends => 'AI khuyến nghị';
+
+  @override
+  String get todayfocuson => 'Hôm nay, tập trung vào ';
+
+  @override
+  String get biology => 'Sinh học ';
+
+  @override
+  String get flashcardsandtry => 'thẻ ghi nhớ và thử \"Bài kiểm tra quang hợp\" mới.';
+
+  @override
+  String get seedetails => 'Xem chi tiết';
+
+  @override
+  String get aichat => 'AI Chat';
+
+  @override
+  String get quizroom => 'Quiz Room';
+
+  @override
+  String get mathstudy => 'Học Toán';
+
+  @override
+  String get literature => 'Văn học';
+
+  @override
+  String get daystreak => 'Chuỗi 7 ngày!';
+
+  @override
+  String get keepitupandearnbonusxp => 'Tiếp tục và kiếm thêm XP';
 }

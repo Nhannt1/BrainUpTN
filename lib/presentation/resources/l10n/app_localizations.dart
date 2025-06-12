@@ -110,7 +110,7 @@ abstract class AppLocalizations {
   /// No description provided for @flashcards.
   ///
   /// In en, this message translates to:
-  /// **''**
+  /// **'Flashcards'**
   String get flashcards;
 
   /// No description provided for @enteryourname.
@@ -280,6 +280,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'A verification email has been sent to your address. Please check and click on the verification link.'**
   String get averificationemail;
+
+  /// No description provided for @yourgroups.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Groups'**
+  String get yourgroups;
+
+  /// No description provided for @viewall.
+  ///
+  /// In en, this message translates to:
+  /// **'View All'**
+  String get viewall;
+
+  /// No description provided for @achievements.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievements'**
+  String get achievements;
+
+  /// No description provided for @welcometobrAInUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to BrAInUp!'**
+  String get welcometobrAInUp;
+
+  /// No description provided for @personalizeyourlearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Personalize your learning journey with AI, quizzes, flashcards, and friends. Ready to level up?'**
+  String get personalizeyourlearning;
+
+  /// No description provided for @getstarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get getstarted;
+
+  /// No description provided for @airecommends.
+  ///
+  /// In en, this message translates to:
+  /// **'AI recommends'**
+  String get airecommends;
+
+  /// No description provided for @todayfocuson.
+  ///
+  /// In en, this message translates to:
+  /// **'Today, focus on '**
+  String get todayfocuson;
+
+  /// No description provided for @biology.
+  ///
+  /// In en, this message translates to:
+  /// **'Biology '**
+  String get biology;
+
+  /// No description provided for @flashcardsandtry.
+  ///
+  /// In en, this message translates to:
+  /// **'flashcards and try the new \"Photosynthesis Quiz\".'**
+  String get flashcardsandtry;
+
+  /// No description provided for @seedetails.
+  ///
+  /// In en, this message translates to:
+  /// **'See Details'**
+  String get seedetails;
+
+  /// No description provided for @aichat.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Chat'**
+  String get aichat;
+
+  /// No description provided for @quizroom.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz Room'**
+  String get quizroom;
+
+  /// No description provided for @mathstudy.
+  ///
+  /// In en, this message translates to:
+  /// **'Math Study'**
+  String get mathstudy;
+
+  /// No description provided for @literature.
+  ///
+  /// In en, this message translates to:
+  /// **'Literature'**
+  String get literature;
+
+  /// No description provided for @daystreak.
+  ///
+  /// In en, this message translates to:
+  /// **'7-Day Streak!'**
+  String get daystreak;
+
+  /// No description provided for @keepitupandearnbonusxp.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep it up and earn bonus XP'**
+  String get keepitupandearnbonusxp;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

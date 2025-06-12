@@ -1,4 +1,5 @@
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
+import 'package:brainup/shared/extensions/context_ext.dart';
 import 'package:brainup/shared/themes/chammy_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,14 +37,14 @@ class _PopupWelcomeState extends State<PopupWelcome> {
           ),
           SizedBox(height: 20.h),
           Text(
-            "Welcome to BrAInUp!",
+            context.l10n!.welcometobrAInUp,
             style:
                 BrainUpTextStyles.text20Bold.copyWith(color: AppColors.paleSky),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 20.h),
           Text(
-            "Personalize your learning journey with AI, quizzes, flashcards, and friends. Ready to level up?",
+            context.l10n!.personalizeyourlearning,
             style: BrainUpTextStyles.text14Normal
                 .copyWith(color: AppColors.paleSky),
             textAlign: TextAlign.center,
@@ -61,7 +62,7 @@ class _PopupWelcomeState extends State<PopupWelcome> {
               ),
               onPressed: () => Navigator.pop(context),
               child: Text(
-                "Get Started",
+                context.l10n!.getstarted,
                 style: BrainUpTextStyles.text16Normal.copyWith(
                     color: AppColors.white, fontWeight: FontWeight.w500),
               ),

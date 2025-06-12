@@ -1,4 +1,6 @@
+import 'package:brainup/presentation/pages/home/widgets/quick_access_item.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
+import 'package:brainup/shared/extensions/context_ext.dart';
 import 'package:brainup/shared/themes/chammy_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,75 +13,35 @@ class QuickAccessRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
             child: QuickAccessItem(
-                icon: FontAwesomeIcons.brain, label: "AI Chat", onTap: () {}),
+                icon: FontAwesomeIcons.brain,
+                label: context.l10n!.aichat,
+                onTap: () {}),
           ),
           SizedBox(
-            width: 12,
+            width: 12.w,
           ),
           Expanded(
             child: QuickAccessItem(
-                icon: FontAwesomeIcons.cube, label: "Flashcards", onTap: () {}),
+                icon: FontAwesomeIcons.cube,
+                label: context.l10n!.flashcards,
+                onTap: () {}),
           ),
           SizedBox(
-            width: 12,
+            width: 12.w,
           ),
           Expanded(
             child: QuickAccessItem(
                 icon: FontAwesomeIcons.clipboardQuestion,
-                label: "Quiz Room",
+                label: context.l10n!.quizroom,
                 onTap: () {}),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class QuickAccessItem extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final VoidCallback onTap;
-  const QuickAccessItem({
-    super.key,
-    required this.icon,
-    required this.label,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.athensGray1,
-              blurRadius: 1.r,
-              offset: Offset(1.r, 2.r),
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 19.w),
-          child: Column(
-            children: [
-              FaIcon(icon, color: AppColors.cornflowerBlue, size: 24.sp),
-              SizedBox(height: 4.h),
-              Text(label,
-                  style: BrainUpTextStyles.text12Normal.copyWith(
-                      color: AppColors.black, fontWeight: FontWeight.w500)),
-            ],
-          ),
-        ),
       ),
     );
   }

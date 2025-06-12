@@ -1,4 +1,5 @@
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
+import 'package:brainup/shared/extensions/context_ext.dart';
 import 'package:brainup/shared/themes/chammy_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,8 +22,8 @@ class AiRecommendCard extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: AppColors.athensGray1,
-              blurRadius: 3,
-              offset: const Offset(0, 2),
+              blurRadius: 3.r,
+              offset: Offset(0, 2.r),
             ),
           ],
         ),
@@ -37,9 +38,9 @@ class AiRecommendCard extends StatelessWidget {
                   color: AppColors.cornflowerBlue,
                   size: 18.sp,
                 ),
-                SizedBox(width: 9),
+                SizedBox(width: 9.w),
                 Text(
-                  "AI recommends",
+                  context.l10n!.airecommends,
                   style: BrainUpTextStyles.text20Bold.copyWith(
                       color: AppColors.black, fontWeight: FontWeight.w600),
                 ),
@@ -51,17 +52,16 @@ class AiRecommendCard extends StatelessWidget {
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: "Today, focus on ",
+                      text: context.l10n!.todayfocuson,
                       style: BrainUpTextStyles.text14Normal
                           .copyWith(color: AppColors.paleSky),
                     ),
                     TextSpan(
-                        text: "Biology",
+                        text: context.l10n!.biology,
                         style: BrainUpTextStyles.text14Bold
                             .copyWith(color: AppColors.cornflowerBlue)),
                     TextSpan(
-                      text:
-                          " flashcards and try the new \"Photosynthesis Quiz\".",
+                      text: context.l10n!.flashcardsandtry,
                       style: BrainUpTextStyles.text14Normal
                           .copyWith(color: AppColors.paleSky),
                     ),
@@ -74,10 +74,9 @@ class AiRecommendCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.r),
                   color: AppColors.zumthor),
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 5.h),
                 child: Text(
-                  "See Details",
+                  context.l10n!.seedetails,
                   style: BrainUpTextStyles.text12Bold
                       .copyWith(color: AppColors.cornflowerBlue),
                 ),

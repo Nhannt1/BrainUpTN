@@ -15,7 +15,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get next => 'Next';
 
   @override
-  String get flashcards => '';
+  String get flashcards => 'Flashcards';
 
   @override
   String get enteryourname => 'Enter your name';
@@ -100,4 +100,55 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get averificationemail => 'A verification email has been sent to your address. Please check and click on the verification link.';
+
+  @override
+  String get yourgroups => 'Your Groups';
+
+  @override
+  String get viewall => 'View All';
+
+  @override
+  String get achievements => 'Achievements';
+
+  @override
+  String get welcometobrAInUp => 'Welcome to BrAInUp!';
+
+  @override
+  String get personalizeyourlearning => 'Personalize your learning journey with AI, quizzes, flashcards, and friends. Ready to level up?';
+
+  @override
+  String get getstarted => 'Get Started';
+
+  @override
+  String get airecommends => 'AI recommends';
+
+  @override
+  String get todayfocuson => 'Today, focus on ';
+
+  @override
+  String get biology => 'Biology ';
+
+  @override
+  String get flashcardsandtry => 'flashcards and try the new \"Photosynthesis Quiz\".';
+
+  @override
+  String get seedetails => 'See Details';
+
+  @override
+  String get aichat => 'AI Chat';
+
+  @override
+  String get quizroom => 'Quiz Room';
+
+  @override
+  String get mathstudy => 'Math Study';
+
+  @override
+  String get literature => 'Literature';
+
+  @override
+  String get daystreak => '7-Day Streak!';
+
+  @override
+  String get keepitupandearnbonusxp => 'Keep it up and earn bonus XP';
 }
