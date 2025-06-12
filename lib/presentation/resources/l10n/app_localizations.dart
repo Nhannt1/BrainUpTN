@@ -113,6 +113,162 @@ abstract class AppLocalizations {
   /// **''**
   String get flashcards;
 
+  /// No description provided for @enteryourname.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get enteryourname;
+
+  /// No description provided for @pleaseenteryourname.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your name'**
+  String get pleaseenteryourname;
+
+  /// No description provided for @incorrectformat.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect format'**
+  String get incorrectformat;
+
+  /// No description provided for @pleaseenteremail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter email'**
+  String get pleaseenteremail;
+
+  /// No description provided for @enteryourphone.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Your Phone'**
+  String get enteryourphone;
+
+  /// No description provided for @pleaseenteryourphonenumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your phone number'**
+  String get pleaseenteryourphonenumber;
+
+  /// No description provided for @createapassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a password'**
+  String get createapassword;
+
+  /// No description provided for @pleaseenterpassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter password'**
+  String get pleaseenterpassword;
+
+  /// No description provided for @passwordmustbeatleast6characters.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 6 characters'**
+  String get passwordmustbeatleast6characters;
+
+  /// No description provided for @iagreetothe.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to the '**
+  String get iagreetothe;
+
+  /// No description provided for @termsofservice.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Service '**
+  String get termsofservice;
+
+  /// No description provided for @and.
+  ///
+  /// In en, this message translates to:
+  /// **'and '**
+  String get and;
+
+  /// No description provided for @privacypolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacypolicy;
+
+  /// No description provided for @register.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get register;
+
+  /// No description provided for @pleaseagreetotheterms.
+  ///
+  /// In en, this message translates to:
+  /// **'Please agree to the terms'**
+  String get pleaseagreetotheterms;
+
+  /// No description provided for @registeredsuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Registered successfully!'**
+  String get registeredsuccessfully;
+
+  /// No description provided for @emailalreadyinuse.
+  ///
+  /// In en, this message translates to:
+  /// **'Email already in use'**
+  String get emailalreadyinuse;
+
+  /// No description provided for @forgotpassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password?'**
+  String get forgotpassword;
+
+  /// No description provided for @loginsuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Login successful!'**
+  String get loginsuccessful;
+
+  /// No description provided for @loginwithotp.
+  ///
+  /// In en, this message translates to:
+  /// **'Login with OTP'**
+  String get loginwithotp;
+
+  /// No description provided for @pleaseverifyyouremailbeforeloggingin.
+  ///
+  /// In en, this message translates to:
+  /// **'Please verify your email before logging in'**
+  String get pleaseverifyyouremailbeforeloggingin;
+
+  /// No description provided for @incorrectemailorpassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect email or password'**
+  String get incorrectemailorpassword;
+
+  /// No description provided for @googleloginsuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Google login successful!'**
+  String get googleloginsuccessful;
+
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @passwordsdonotmatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordsdonotmatch;
+
   /// No description provided for @youHaveNotVerifiedYourMail.
   ///
   /// In en, this message translates to:

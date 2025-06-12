@@ -2,7 +2,7 @@
 <resources>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-     <color name="background_color">#070A11</color>
+    <color name="background_color">#070A11</color>
     <color name="background_color_1">#FFF7F8FA</color>
     <color name="manatee">#959699</color>
     <color name="mirage">#101622</color>
@@ -22,4 +22,23 @@
     <color name="oxford_blue">#374151</color>
     <color name="river_bed">#4B5563</color>
     <color name="pale_sky">#6B7280</color>
+    <color name="dodgerblue">#3B82F6</color>
+    <color name="flamingo">#EF4444</color>
+    <color name="zumthor">#E0E7FF</color>
+    <color name="pattensblue">#DBEAFE</color>
+    <color name="corn">#EAB308</color>
+    <color name="governorbay">#3730A3</color>
+    <color name="salem">#16A34A</color>
+    <color name="feta">#F0FDF4</color>
+    <color name="ice_cold">#BBF7D0</color>
+    <color name="carousel_pink">#FDF2F8</color>
+    <color name="classic_rose">#FBCFE8</color>
+    <color name="amroon_flush">#BE185D</color>
+    <color name="orange_white">#FEFCE8</color>
+    <color name="dolly">#FEF08A</color>
+    <color name="rich_gold">#A16207</color>
+    <color name="melrose">#A5B4FC</color>
+    <color name="lavender_pink">#F9A8D4</color>
+    <color name="bright_sun">#FDE047</color>
+    <color name="french_rose">#EC4899</color>
 </resources>

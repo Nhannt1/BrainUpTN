@@ -5,6 +5,7 @@ import 'package:brainup/presentation/pages/home/home_page.dart';
 import 'package:brainup/presentation/pages/login/widgets/button_widget.dart';
 import 'package:brainup/presentation/pages/login/widgets/login_widget.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
+import 'package:brainup/shared/extensions/context_ext.dart';
 import 'package:brainup/shared/themes/chammy_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,7 +42,7 @@ class _LoginFormState extends State<LoginForm> {
                 controller: emailController,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Please enter your email';
+                    return context.l10n!.pleaseenteremail;
                   }
 
                   return null;
@@ -55,10 +56,10 @@ class _LoginFormState extends State<LoginForm> {
                 controller: passwordController,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Please enter password';
+                    return context.l10n!.pleaseenterpassword;
                   }
                   if (value.length < 6) {
-                    return 'Password must be at least 6 characters';
+                    return context.l10n!.passwordmustbeatleast6characters;
                   }
                   return null;
                 },
@@ -72,7 +73,7 @@ class _LoginFormState extends State<LoginForm> {
                   GestureDetector(
                     onTap: () {},
                     child: Text(
-                      'Forgot password?',
+                      context.l10n!.forgotpassword,
                       style: BrainUpTextStyles.text12Normal.copyWith(
                           color: AppColors.royalBlue,
                           decoration: TextDecoration.underline,
@@ -80,7 +81,7 @@ class _LoginFormState extends State<LoginForm> {
                           fontWeight: FontWeight.w500),
                     ),
                   ),
-                  Text('Login with OTP',
+                  Text(context.l10n!.loginwithotp,
                       style: BrainUpTextStyles.text12Normal.copyWith(
                           color: AppColors.paleSky,
                           fontWeight: FontWeight.w500))
@@ -90,7 +91,7 @@ class _LoginFormState extends State<LoginForm> {
                 height: 32.h,
               ),
               ButtonWidget(
-                text: "Login",
+                text: context.l10n!.login,
                 ontap: () async {
                   if (_formkey.currentState!.validate()) {
                     SignInStatus result = await auth.signInWithEmail(
@@ -103,7 +104,8 @@ class _LoginFormState extends State<LoginForm> {
                         await userLocal.saveHasLogin(hasLogin: true);
                         context.go(Home.rootLocation);
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Login successful!")),
+                          SnackBar(
+                              content: Text(context.l10n!.loginsuccessful)),
                         );
                         emailController.clear();
                         passwordController.clear();
@@ -112,15 +114,16 @@ class _LoginFormState extends State<LoginForm> {
                       case SignInStatus.emailNotVerified:
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                              content: Text(
-                                  "⚠️ Please verify your email before logging in.")),
+                              content: Text(context
+                                  .l10n!.pleaseverifyyouremailbeforeloggingin)),
                         );
                         break;
 
                       case SignInStatus.wrongCredentials:
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                              content: Text("❌ Incorrect email or password.")),
+                              content:
+                                  Text(context.l10n!.incorrectemailorpassword)),
                         );
                         break;
                     }
@@ -172,9 +175,8 @@ class _LoginFormState extends State<LoginForm> {
                       if (result == null) {
                         await userLocal.saveHasLogin(hasLogin: true);
                         context.go(Home.rootLocation);
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text('Google login successful!'),
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(context.l10n!.googleloginsuccessful),
                         ));
                       } else {
                         print(result);
