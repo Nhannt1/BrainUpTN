@@ -80,7 +80,11 @@ class _Home extends State<Home> {
           height: 56.h,
           decoration: BoxDecoration(
             gradient: LinearGradient(
+<<<<<<< HEAD
               colors: [AppColors.royalBlue, AppColors.dodgerblue],
+=======
+              colors: [AppColors.royalBlue, AppColors.dodgerBlue],
+>>>>>>> 3eed932 ([Task]#12 Create ui home screen)
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
