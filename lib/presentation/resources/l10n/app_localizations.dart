@@ -110,8 +110,164 @@ abstract class AppLocalizations {
   /// No description provided for @flashcards.
   ///
   /// In en, this message translates to:
-  /// **''**
+  /// **'Flashcards'**
   String get flashcards;
+
+  /// No description provided for @enteryourname.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get enteryourname;
+
+  /// No description provided for @pleaseenteryourname.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your name'**
+  String get pleaseenteryourname;
+
+  /// No description provided for @incorrectformat.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect format'**
+  String get incorrectformat;
+
+  /// No description provided for @pleaseenteremail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter email'**
+  String get pleaseenteremail;
+
+  /// No description provided for @enteryourphone.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Your Phone'**
+  String get enteryourphone;
+
+  /// No description provided for @pleaseenteryourphonenumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your phone number'**
+  String get pleaseenteryourphonenumber;
+
+  /// No description provided for @createapassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a password'**
+  String get createapassword;
+
+  /// No description provided for @pleaseenterpassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter password'**
+  String get pleaseenterpassword;
+
+  /// No description provided for @passwordmustbeatleast6characters.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 6 characters'**
+  String get passwordmustbeatleast6characters;
+
+  /// No description provided for @iagreetothe.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to the '**
+  String get iagreetothe;
+
+  /// No description provided for @termsofservice.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Service '**
+  String get termsofservice;
+
+  /// No description provided for @and.
+  ///
+  /// In en, this message translates to:
+  /// **'and '**
+  String get and;
+
+  /// No description provided for @privacypolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacypolicy;
+
+  /// No description provided for @register.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get register;
+
+  /// No description provided for @pleaseagreetotheterms.
+  ///
+  /// In en, this message translates to:
+  /// **'Please agree to the terms'**
+  String get pleaseagreetotheterms;
+
+  /// No description provided for @registeredsuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Registered successfully!'**
+  String get registeredsuccessfully;
+
+  /// No description provided for @emailalreadyinuse.
+  ///
+  /// In en, this message translates to:
+  /// **'Email already in use'**
+  String get emailalreadyinuse;
+
+  /// No description provided for @forgotpassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password?'**
+  String get forgotpassword;
+
+  /// No description provided for @loginsuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Login successful!'**
+  String get loginsuccessful;
+
+  /// No description provided for @loginwithotp.
+  ///
+  /// In en, this message translates to:
+  /// **'Login with OTP'**
+  String get loginwithotp;
+
+  /// No description provided for @pleaseverifyyouremailbeforeloggingin.
+  ///
+  /// In en, this message translates to:
+  /// **'Please verify your email before logging in'**
+  String get pleaseverifyyouremailbeforeloggingin;
+
+  /// No description provided for @incorrectemailorpassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect email or password'**
+  String get incorrectemailorpassword;
+
+  /// No description provided for @googleloginsuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Google login successful!'**
+  String get googleloginsuccessful;
+
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @passwordsdonotmatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordsdonotmatch;
 
   /// No description provided for @youHaveNotVerifiedYourMail.
   ///
@@ -124,6 +280,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'A verification email has been sent to your address. Please check and click on the verification link.'**
   String get averificationemail;
+
+  /// No description provided for @yourgroups.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Groups'**
+  String get yourgroups;
+
+  /// No description provided for @viewall.
+  ///
+  /// In en, this message translates to:
+  /// **'View All'**
+  String get viewall;
+
+  /// No description provided for @achievements.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievements'**
+  String get achievements;
+
+  /// No description provided for @welcometobrAInUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to BrAInUp!'**
+  String get welcometobrAInUp;
+
+  /// No description provided for @personalizeyourlearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Personalize your learning journey with AI, quizzes, flashcards, and friends. Ready to level up?'**
+  String get personalizeyourlearning;
+
+  /// No description provided for @getstarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get getstarted;
+
+  /// No description provided for @airecommends.
+  ///
+  /// In en, this message translates to:
+  /// **'AI recommends'**
+  String get airecommends;
+
+  /// No description provided for @todayfocuson.
+  ///
+  /// In en, this message translates to:
+  /// **'Today, focus on '**
+  String get todayfocuson;
+
+  /// No description provided for @biology.
+  ///
+  /// In en, this message translates to:
+  /// **'Biology '**
+  String get biology;
+
+  /// No description provided for @flashcardsandtry.
+  ///
+  /// In en, this message translates to:
+  /// **'flashcards and try the new \"Photosynthesis Quiz\".'**
+  String get flashcardsandtry;
+
+  /// No description provided for @seedetails.
+  ///
+  /// In en, this message translates to:
+  /// **'See Details'**
+  String get seedetails;
+
+  /// No description provided for @aichat.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Chat'**
+  String get aichat;
+
+  /// No description provided for @quizroom.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz Room'**
+  String get quizroom;
+
+  /// No description provided for @mathstudy.
+  ///
+  /// In en, this message translates to:
+  /// **'Math Study'**
+  String get mathstudy;
+
+  /// No description provided for @literature.
+  ///
+  /// In en, this message translates to:
+  /// **'Literature'**
+  String get literature;
+
+  /// No description provided for @daystreak.
+  ///
+  /// In en, this message translates to:
+  /// **'7-Day Streak!'**
+  String get daystreak;
+
+  /// No description provided for @keepitupandearnbonusxp.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep it up and earn bonus XP'**
+  String get keepitupandearnbonusxp;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

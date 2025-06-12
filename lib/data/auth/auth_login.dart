@@ -62,6 +62,7 @@ class AuthLogin {
 
       if (user != null && !user.emailVerified) {
         await user.sendEmailVerification();
+        return;
       }
       await user!.reload();
       await FirebaseFirestore.instance.collection('users').doc(uid).set({

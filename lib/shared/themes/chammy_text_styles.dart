@@ -2,6 +2,17 @@ import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
 class BrainUpTextStyles {
+  static TextStyle get text10Bold => TextStyle(
+        fontSize: 10,
+        fontWeight: FontWeight.bold,
+        color: AppColors.white,
+      );
+
+  static TextStyle get text10Normal => TextStyle(
+        fontSize: 10,
+        fontWeight: FontWeight.normal,
+        color: AppColors.white,
+      );
   static TextStyle get text12Bold => TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.bold,

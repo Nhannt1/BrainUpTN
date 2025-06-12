@@ -3,6 +3,7 @@ import 'package:brainup/presentation/pages/login/verify_mail_page.dart';
 import 'package:brainup/presentation/pages/login/widgets/button_widget.dart';
 import 'package:brainup/presentation/pages/login/widgets/register_widget.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
+import 'package:brainup/shared/extensions/context_ext.dart';
 import 'package:brainup/shared/themes/chammy_text_styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -47,16 +48,16 @@ class _RegisterFormState extends State<RegisterForm> {
         children: [
           RegisterWidget(
             label: "Full Name",
-            hintText: "Enter your name",
+            hintText: context.l10n!.enteryourname,
             controller: nameController,
             isPassword: false,
             prefixIcon: FontAwesomeIcons.lock,
             validator: (value) {
               if (value == null || value.isEmpty)
-                return 'Please enter your name';
+                return context.l10n!.pleaseenteryourname;
 
               if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value.trim())) {
-                return 'Incorrect format';
+                return context.l10n!.incorrectformat;
               }
             },
           ),
@@ -70,10 +71,11 @@ class _RegisterFormState extends State<RegisterForm> {
             isPassword: false,
             prefixIcon: FontAwesomeIcons.lock,
             validator: (value) {
-              if (value == null || value.isEmpty) return 'Please enter email';
+              if (value == null || value.isEmpty)
+                return context.l10n!.pleaseenteremail;
               if (!RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$')
                   .hasMatch(value.trim())) {
-                return 'Incorrect format';
+                return context.l10n!.incorrectformat;
               }
             },
           ),
@@ -82,15 +84,15 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           RegisterWidget(
             label: "Phone Number",
-            hintText: "Enter your phone",
+            hintText: context.l10n!.enteryourphone,
             controller: phoneNumberController,
             isPassword: false,
             prefixIcon: FontAwesomeIcons.lock,
             validator: (value) {
               if (value == null || value.isEmpty)
-                return 'Please enter your phone number';
+                return context.l10n!.pleaseenteryourphonenumber;
               if (!RegExp(r'^0[0-9]{9}$').hasMatch(value.trim())) {
-                return 'Incorrect format';
+                return context.l10n!.incorrectformat;
               }
             },
           ),
@@ -99,15 +101,15 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           RegisterWidget(
             label: "Password",
-            hintText: "Create a password",
+            hintText: context.l10n!.createapassword,
             controller: passwordController,
             isPassword: true,
             prefixIcon: FontAwesomeIcons.lock,
             validator: (value) {
               if (value == null || value.isEmpty)
-                return 'Please enter password';
+                return context.l10n!.pleaseenterpassword;
               if (value.length < 6)
-                return 'Password must be at least 6 characters';
+                return context.l10n!.passwordmustbeatleast6characters;
               return null;
             },
           ),
@@ -116,15 +118,15 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           RegisterWidget(
             label: "Comfirm Password",
-            hintText: "Create a password",
+            hintText: context.l10n!.createapassword,
             controller: repasswordController,
             isPassword: true,
             prefixIcon: FontAwesomeIcons.lock,
             validator: (value) {
               if (value == null || value.isEmpty)
-                return 'Please enter password';
+                return context.l10n!.pleaseenterpassword;
               if (value.length < 6)
-                return 'Password must be at least 6 characters';
+                return context.l10n!.passwordmustbeatleast6characters;
               return null;
             },
           ),
@@ -153,19 +155,19 @@ class _RegisterFormState extends State<RegisterForm> {
                 child: RichText(
                     text: TextSpan(children: [
                   TextSpan(
-                      text: "I agree to the ",
+                      text: context.l10n!.iagreetothe,
                       style: BrainUpTextStyles.text14Normal
                           .copyWith(color: AppColors.riverBed)),
                   TextSpan(
-                      text: "Terms of Service ",
+                      text: context.l10n!.termsofservice,
                       style: BrainUpTextStyles.text14Normal
                           .copyWith(color: AppColors.cornflowerBlue)),
                   TextSpan(
-                      text: "and ",
+                      text: context.l10n!.and,
                       style: BrainUpTextStyles.text14Normal
                           .copyWith(color: AppColors.riverBed)),
                   TextSpan(
-                      text: "Privacy Policy",
+                      text: context.l10n!.privacypolicy,
                       style: BrainUpTextStyles.text14Normal
                           .copyWith(color: AppColors.cornflowerBlue)),
                 ])),
@@ -176,12 +178,13 @@ class _RegisterFormState extends State<RegisterForm> {
             height: 20.h,
           ),
           ButtonWidget(
-            text: "Register",
+            text: context.l10n!.register,
             ontap: () async {
               if (_formkey.currentState!.validate()) {
                 if (!isCheckedIcon) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Please agree to the terms')),
+                    SnackBar(
+                        content: Text(context.l10n!.pleaseagreetotheterms)),
                   );
                   return;
                 }
@@ -194,12 +197,14 @@ class _RegisterFormState extends State<RegisterForm> {
                         password: passwordController.text);
                     context.go(VerifyEmailPage.rootLocation);
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Registered successfully!')),
+                      SnackBar(
+                          content: Text(context.l10n!.registeredsuccessfully)),
                     );
                   } on FirebaseAuthException catch (e) {
                     if (e.code == 'email-already-in-use') {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Email already in use')),
+                        SnackBar(
+                            content: Text(context.l10n!.emailalreadyinuse)),
                       );
                     }
                   } catch (e) {
@@ -209,7 +214,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   }
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Passwords do not match')),
+                    SnackBar(content: Text(context.l10n!.passwordsdonotmatch)),
                   );
                 }
                 nameController.clear();
