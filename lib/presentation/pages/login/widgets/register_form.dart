@@ -25,6 +25,7 @@ class _RegisterFormState extends State<RegisterForm> {
   final passwordController = TextEditingController();
   final nameController = TextEditingController();
   final phoneNumberController = TextEditingController();
+  final ageController = TextEditingController();
   final repasswordController = TextEditingController();
   bool isCheckedIcon = false;
   final AuthLogin auth = AuthLogin();
@@ -33,6 +34,7 @@ class _RegisterFormState extends State<RegisterForm> {
     emailController.dispose();
     passwordController.dispose();
     nameController.dispose();
+    ageController.dispose();
     phoneNumberController.dispose();
     repasswordController.dispose();
     super.dispose();
@@ -92,6 +94,23 @@ class _RegisterFormState extends State<RegisterForm> {
               if (value == null || value.isEmpty)
                 return context.l10n!.pleaseenteryourphonenumber;
               if (!RegExp(r'^0[0-9]{9}$').hasMatch(value.trim())) {
+                return context.l10n!.incorrectformat;
+              }
+            },
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          RegisterWidget(
+            label: "Age",
+            hintText: context.l10n!.enteryourage,
+            controller: ageController,
+            isPassword: false,
+            prefixIcon: FontAwesomeIcons.lock,
+            validator: (value) {
+              if (value == null || value.isEmpty)
+                return context.l10n!.enteryourage;
+              if (!RegExp(r'^\d{2}$').hasMatch(value.trim())) {
                 return context.l10n!.incorrectformat;
               }
             },
@@ -193,8 +212,9 @@ class _RegisterFormState extends State<RegisterForm> {
                     await auth.signUpSaveUser(
                         fullname: nameController.text,
                         email: emailController.text.trim(),
-                        phoneNumber: phoneNumberController.text,
-                        password: passwordController.text);
+                        phoneNumber: phoneNumberController.text.trim(),
+                        age: ageController.text.trim(),
+                        password: passwordController.text.trim());
                     context.go(VerifyEmailPage.rootLocation);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -222,6 +242,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 phoneNumberController.clear();
                 passwordController.clear();
                 repasswordController.clear();
+                ageController.clear();
               }
             },
           ),

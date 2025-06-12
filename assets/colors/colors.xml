@@ -41,4 +41,18 @@
     <color name="lavender_pink">#F9A8D4</color>
     <color name="bright_sun">#FDE047</color>
     <color name="french_rose">#EC4899</color>
+    <color name="gold">#FFD600</color>
+    <color name="orangepeel">#FFA000</color>
+    <color name="cloud_burstl">#232B50</color>
+    <color name="storm_gray">#6A728D</color>
+    <color name="white_lilac">#F7F9FC</color>
+    <color name="east_bay">#474F7A</color>
+    <color name="turquoise">#4DE7A6</color>
+    <color name="salmon">#FF8A65</color>
+    <color name="east_bay">#474F7A</color>
+    <color name="cornflowerblue">#7D5FFF</color>
+    <color name="periwinkle_gray">#D4D9EC</color>
+
+
+
 </resources>

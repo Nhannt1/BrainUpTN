@@ -1,6 +1,7 @@
 import 'package:brainup/data/repository/source/local/user_local_data_source.dart';
 import 'package:brainup/di/di.dart';
 import 'package:brainup/presentation/pages/login/login_page.dart';
+import 'package:brainup/presentation/pages/profile/profile_page.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:brainup/shared/themes/chammy_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -16,14 +17,17 @@ class UserHeader extends StatelessWidget {
     return SafeArea(
         child: Container(
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.athensGray1),
-      ),
+          border: Border(
+        bottom: BorderSide(color: AppColors.athensGray1, width: 1),
+      )),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
         child: Row(
           children: [
             InkWell(
-              onTap: () {},
+              onTap: () {
+                context.go(ProfilePage.rootLocation);
+              },
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,

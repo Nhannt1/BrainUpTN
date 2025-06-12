@@ -93,6 +93,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get password => 'Password';
 
   @override
+  String get enteryourage => 'Enter Your Age';
+
+  @override
   String get passwordsdonotmatch => 'Passwords do not match';
 
   @override

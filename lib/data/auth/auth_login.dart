@@ -53,6 +53,7 @@ class AuthLogin {
     required String password,
     required String fullname,
     required String phoneNumber,
+    required String age,
   }) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
@@ -71,6 +72,7 @@ class AuthLogin {
         'email': email,
         'phoneNumber': phoneNumber,
         'password': password,
+        'age': age,
         'createdAt': Timestamp.now(),
       });
       print("save user success");

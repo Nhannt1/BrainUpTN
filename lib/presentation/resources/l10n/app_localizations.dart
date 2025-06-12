@@ -263,6 +263,12 @@ abstract class AppLocalizations {
   /// **'Password'**
   String get password;
 
+  /// No description provided for @enteryourage.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Your Age'**
+  String get enteryourage;
+
   /// No description provided for @passwordsdonotmatch.
   ///
   /// In en, this message translates to:
