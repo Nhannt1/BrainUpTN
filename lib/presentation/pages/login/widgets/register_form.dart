@@ -85,7 +85,7 @@ class _RegisterFormState extends State<RegisterForm> {
             height: 20.h,
           ),
           RegisterWidget(
-            label: "Phone Number",
+            label: context.l10n!.phonenumber,
             hintText: context.l10n!.enteryourphone,
             controller: phoneNumberController,
             isPassword: false,
@@ -102,7 +102,7 @@ class _RegisterFormState extends State<RegisterForm> {
             height: 20.h,
           ),
           RegisterWidget(
-            label: "Age",
+            label: context.l10n!.age,
             hintText: context.l10n!.enteryourage,
             controller: ageController,
             isPassword: false,
@@ -119,7 +119,7 @@ class _RegisterFormState extends State<RegisterForm> {
             height: 20.h,
           ),
           RegisterWidget(
-            label: "Password",
+            label: context.l10n!.password,
             hintText: context.l10n!.createapassword,
             controller: passwordController,
             isPassword: true,
@@ -136,7 +136,7 @@ class _RegisterFormState extends State<RegisterForm> {
             height: 20.h,
           ),
           RegisterWidget(
-            label: "Comfirm Password",
+            label: context.l10n!.comfirmpassword,
             hintText: context.l10n!.createapassword,
             controller: repasswordController,
             isPassword: true,

@@ -96,6 +96,21 @@ class AppLocalizationsVi extends AppLocalizations {
   String get enteryourage => 'Nhập tuổi của bạn';
 
   @override
+  String get age => 'Tuổi';
+
+  @override
+  String get name => 'Tên';
+
+  @override
+  String get fullname => 'Họ và Tên';
+
+  @override
+  String get phonenumber => 'Số Điện Thoại';
+
+  @override
+  String get comfirmpassword => 'Xác nhận mật khẩu';
+
+  @override
   String get passwordsdonotmatch => 'Mật khẩu không khớp';
 
   @override

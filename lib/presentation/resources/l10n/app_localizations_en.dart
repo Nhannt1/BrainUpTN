@@ -96,6 +96,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enteryourage => 'Enter Your Age';
 
   @override
+  String get age => 'Age';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get fullname => 'Full Name';
+
+  @override
+  String get phonenumber => 'Phone Number';
+
+  @override
+  String get comfirmpassword => 'Comfirm Password';
+
+  @override
   String get passwordsdonotmatch => 'Passwords do not match';
 
   @override

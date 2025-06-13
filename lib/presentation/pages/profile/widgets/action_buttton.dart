@@ -45,7 +45,7 @@ class ActionButtons extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
-                      colors: [Color(0xFF7F7FFF), Color(0xFF63E6BE)],
+                      colors: [AppColors.malibu, AppColors.turquoise],
                     ),
                     borderRadius: BorderRadius.circular(12.r),
                   ),

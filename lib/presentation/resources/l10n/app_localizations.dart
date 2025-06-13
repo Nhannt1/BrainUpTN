@@ -269,6 +269,36 @@ abstract class AppLocalizations {
   /// **'Enter Your Age'**
   String get enteryourage;
 
+  /// No description provided for @age.
+  ///
+  /// In en, this message translates to:
+  /// **'Age'**
+  String get age;
+
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get name;
+
+  /// No description provided for @fullname.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get fullname;
+
+  /// No description provided for @phonenumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get phonenumber;
+
+  /// No description provided for @comfirmpassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Comfirm Password'**
+  String get comfirmpassword;
+
   /// No description provided for @passwordsdonotmatch.
   ///
   /// In en, this message translates to:

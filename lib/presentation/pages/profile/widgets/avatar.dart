@@ -23,7 +23,7 @@ class Avatar extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.all(3.w),
                     child: CircleAvatar(
-                      radius: 40,
+                      radius: 40.r,
                       backgroundImage:
                           NetworkImage('https://i.imgur.com/QCNbOAo.png'),
                     ),
@@ -41,7 +41,7 @@ class Avatar extends StatelessWidget {
                         radius: 14.r,
                         backgroundColor: AppColors.cornflowerBlue,
                         child: Icon(Icons.camera_alt,
-                            size: 14.sp, color: Colors.white),
+                            size: 14.sp, color: AppColors.white),
                       ),
                     ),
                   ),
