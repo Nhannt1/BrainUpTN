@@ -46,34 +46,40 @@ class _Home extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: SingleChildScrollView(
-        child: Column(
-          children: [
-            UserHeader(),
-            SizedBox(
-              height: 8.h,
+          child: Column(
+        children: [
+          UserHeader(),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  StreakCard(),
+                  SizedBox(
+                    height: 16.h,
+                  ),
+                  QuickAccessRow(),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  AiRecommendCard(),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  SelectGroup(),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  AchievementsSection()
+                ],
+              ),
             ),
-            StreakCard(),
-            SizedBox(
-              height: 16.h,
-            ),
-            QuickAccessRow(),
-            SizedBox(
-              height: 20.h,
-            ),
-            AiRecommendCard(),
-            SizedBox(
-              height: 20.h,
-            ),
-            SelectGroup(),
-            SizedBox(
-              height: 20.h,
-            ),
-            AchievementsSection()
-          ],
-        ),
+          ),
+        ],
       )),
-      floatingActionButton: InkWell(
+      floatingActionButton: GestureDetector(
         onTap: () {},
         child: Container(
           width: 56.w,

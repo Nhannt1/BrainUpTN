@@ -50,8 +50,8 @@ class _LoginFormState extends State<LoginForm> {
               ),
               SizedBox(height: 20.h),
               LoginWidget(
-                label: "Password",
-                hintext: "Password",
+                label: context.l10n!.password,
+                hintext: context.l10n!.password,
                 isPassword: true,
                 controller: passwordController,
                 validator: (value) {

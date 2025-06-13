@@ -25,6 +25,7 @@ class _RegisterFormState extends State<RegisterForm> {
   final passwordController = TextEditingController();
   final nameController = TextEditingController();
   final phoneNumberController = TextEditingController();
+  final ageController = TextEditingController();
   final repasswordController = TextEditingController();
   bool isCheckedIcon = false;
   final AuthLogin auth = AuthLogin();
@@ -33,6 +34,7 @@ class _RegisterFormState extends State<RegisterForm> {
     emailController.dispose();
     passwordController.dispose();
     nameController.dispose();
+    ageController.dispose();
     phoneNumberController.dispose();
     repasswordController.dispose();
     super.dispose();
@@ -83,7 +85,7 @@ class _RegisterFormState extends State<RegisterForm> {
             height: 20.h,
           ),
           RegisterWidget(
-            label: "Phone Number",
+            label: context.l10n!.phonenumber,
             hintText: context.l10n!.enteryourphone,
             controller: phoneNumberController,
             isPassword: false,
@@ -100,7 +102,24 @@ class _RegisterFormState extends State<RegisterForm> {
             height: 20.h,
           ),
           RegisterWidget(
-            label: "Password",
+            label: context.l10n!.age,
+            hintText: context.l10n!.enteryourage,
+            controller: ageController,
+            isPassword: false,
+            prefixIcon: FontAwesomeIcons.lock,
+            validator: (value) {
+              if (value == null || value.isEmpty)
+                return context.l10n!.enteryourage;
+              if (!RegExp(r'^\d{2}$').hasMatch(value.trim())) {
+                return context.l10n!.incorrectformat;
+              }
+            },
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          RegisterWidget(
+            label: context.l10n!.password,
             hintText: context.l10n!.createapassword,
             controller: passwordController,
             isPassword: true,
@@ -117,7 +136,7 @@ class _RegisterFormState extends State<RegisterForm> {
             height: 20.h,
           ),
           RegisterWidget(
-            label: "Comfirm Password",
+            label: context.l10n!.comfirmpassword,
             hintText: context.l10n!.createapassword,
             controller: repasswordController,
             isPassword: true,
@@ -193,8 +212,9 @@ class _RegisterFormState extends State<RegisterForm> {
                     await auth.signUpSaveUser(
                         fullname: nameController.text,
                         email: emailController.text.trim(),
-                        phoneNumber: phoneNumberController.text,
-                        password: passwordController.text);
+                        phoneNumber: phoneNumberController.text.trim(),
+                        age: ageController.text.trim(),
+                        password: passwordController.text.trim());
                     context.go(VerifyEmailPage.rootLocation);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -222,6 +242,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 phoneNumberController.clear();
                 passwordController.clear();
                 repasswordController.clear();
+                ageController.clear();
               }
             },
           ),

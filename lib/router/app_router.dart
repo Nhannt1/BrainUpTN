@@ -5,6 +5,7 @@ import 'package:brainup/presentation/pages/home/home_page.dart';
 import 'package:brainup/presentation/pages/login/login_page.dart';
 import 'package:brainup/presentation/pages/login/verify_mail_page.dart';
 import 'package:brainup/presentation/pages/photo_preview/photo_preview_page.dart';
+import 'package:brainup/presentation/pages/profile/profile_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -52,6 +53,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: Home.rootLocation,
         builder: (context, state) => Home(),
+      ),
+      GoRoute(
+        path: ProfilePage.rootLocation,
+        builder: (context, state) => ProfilePage(),
       ),
     ],
   );

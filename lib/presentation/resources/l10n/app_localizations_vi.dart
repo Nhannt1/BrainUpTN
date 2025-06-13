@@ -45,13 +45,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get passwordmustbeatleast6characters => 'Mật khẩu phải có ít nhất 6 ký tự';
 
   @override
-  String get iagreetothe => 'Tôi đồng ý với';
+  String get iagreetothe => 'Tôi đồng ý với ';
 
   @override
-  String get termsofservice => 'Điều khoản dịch vụ';
+  String get termsofservice => 'Điều khoản dịch vụ ';
 
   @override
-  String get and => 'và';
+  String get and => 'và ';
 
   @override
   String get privacypolicy => 'Chính sách bảo mật';
@@ -91,6 +91,24 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get password => 'Mật khẩu';
+
+  @override
+  String get enteryourage => 'Nhập tuổi của bạn';
+
+  @override
+  String get age => 'Tuổi';
+
+  @override
+  String get name => 'Tên';
+
+  @override
+  String get fullname => 'Họ và Tên';
+
+  @override
+  String get phonenumber => 'Số Điện Thoại';
+
+  @override
+  String get comfirmpassword => 'Xác nhận mật khẩu';
 
   @override
   String get passwordsdonotmatch => 'Mật khẩu không khớp';
