@@ -1,5 +1,6 @@
 import 'package:brainup/data/repository/source/local/user_local_data_source.dart';
 import 'package:brainup/di/di.dart';
+import 'package:brainup/presentation/pages/chat_ai/chat_ai_page.dart';
 import 'package:brainup/presentation/pages/genrate_gallery_saver/generate_gallery_saver_page.dart';
 import 'package:brainup/presentation/pages/home/home_page.dart';
 import 'package:brainup/presentation/pages/login/login_page.dart';
@@ -55,8 +56,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => Home(),
       ),
       GoRoute(
-        path: ProfilePage.rootLocation,
-        builder: (context, state) => ProfilePage(),
+        path: ChatAiPage.rootLocation,
+        builder: (context, state) => ChatAiPage(),
       ),
     ],
   );
