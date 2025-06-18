@@ -6,6 +6,7 @@ import 'package:brainup/presentation/pages/home/widgets/select_group.dart';
 import 'package:brainup/presentation/pages/home/widgets/streak_card.dart';
 import 'package:brainup/presentation/pages/home/widgets/user_header.dart';
 import 'package:brainup/presentation/pages/login/login_page.dart';
+import 'package:brainup/presentation/pages/sumary/sumary_page.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:brainup/presentation/pages/login/verify_mail_page.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +81,9 @@ class _Home extends State<Home> {
         ],
       )),
       floatingActionButton: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          context.go(SumaryPage.rootLocation);
+        },
         child: Container(
           width: 56.w,
           height: 56.h,

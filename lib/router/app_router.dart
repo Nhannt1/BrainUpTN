@@ -9,6 +9,7 @@ import 'package:brainup/presentation/pages/photo_preview/photo_preview_page.dart
 import 'package:brainup/presentation/pages/profile/profile_page.dart';
 import 'package:brainup/presentation/pages/question/flashcard_page.dart';
 import 'package:brainup/presentation/pages/smart_ai_quizz/smart_ai_quizz.dart';
+import 'package:brainup/presentation/pages/sumary/sumary_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -72,6 +73,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: SmartAiQuizz.rootLocation,
         builder: (context, state) => SmartAiQuizz(),
+      ),
+      GoRoute(
+        path: ProfilePage.rootLocation,
+        builder: (context, state) => ProfilePage(),
+      ),
+      GoRoute(
+        path: SumaryPage.rootLocation,
+        builder: (context, state) => SumaryPage(),
       ),
     ],
   );
