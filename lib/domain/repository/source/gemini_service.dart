@@ -1,0 +1,142 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:brainup/presentation/pages/chat_ai/widgets/message_model.dart';
+import 'package:http/http.dart' as http;
+
+class GeminiService {
+  final String apiKey = 'AIzaSyBenwZ4frHSXfZ6xHNmCqvbmiunhJkgm6Y';
+
+  Future<String> generateSmart({
+    required String prompt,
+    required List<MessageModel> messages,
+    File? imageFile,
+  }) async {
+    final url = Uri.parse(
+      'https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=$apiKey',
+    );
+    final headers = {'Content-Type': 'application/json'};
+    final recentMessages = messages.length > 10
+        ? messages.sublist(messages.length - 10)
+        : messages;
+    final historyContents = recentMessages.map((message) {
+      final parts = <Map<String, dynamic>>[];
+
+      if (message.text.isNotEmpty) {
+        parts.add({"text": message.text});
+      }
+
+      if (message.imageFile != null) {
+        final imageBytes = message.imageFile!.readAsBytesSync();
+        final base64Image = base64Encode(imageBytes);
+
+        final ext = message.imageFile!.path.split('.').last.toLowerCase();
+        String mimeType;
+        switch (ext) {
+          case 'jpg':
+          case 'jpeg':
+            mimeType = 'image/jpeg';
+            break;
+          case 'png':
+            mimeType = 'image/png';
+            break;
+          case 'webp':
+            mimeType = 'image/webp';
+            break;
+          default:
+            mimeType = 'image/jpeg';
+        }
+
+        parts.add({
+          "inlineData": {
+            "mimeType": mimeType,
+            "data": base64Image,
+          }
+        });
+      }
+
+      return {
+        "role": message.isUser ? "user" : "model",
+        "parts": parts,
+      };
+    }).toList();
+
+    List<Map<String, dynamic>> parts = [];
+    if (imageFile != null) {
+      parts.add({"text": prompt.isEmpty ? "Hãy mô tả bức tranh" : prompt});
+      final imageBytes = await imageFile.readAsBytes();
+      final base64Image = base64Encode(imageBytes);
+
+      final extension = imageFile.path.split('.').last.toLowerCase();
+      String mimeType;
+      switch (extension) {
+        case 'jpg':
+        case 'jpeg':
+          mimeType = 'image/jpeg';
+          break;
+        case 'png':
+          mimeType = 'image/png';
+          break;
+        case 'webp':
+          mimeType = 'image/webp';
+          break;
+        default:
+          mimeType = 'image/jpeg';
+          break;
+      }
+
+      parts.add({
+        "inlineData": {
+          "mimeType": mimeType,
+          "data": base64Image,
+        }
+      });
+    } else {
+      parts.add({"text": prompt});
+    }
+    historyContents.add({
+      "role": "user",
+      "parts": parts,
+    });
+    final body = jsonEncode({
+      "contents": historyContents,
+    });
+
+    final response = await http.post(url, headers: headers, body: body);
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final text = data['candidates'][0]['content']['parts'][0]['text'];
+      return text;
+    } else {
+      print('❌ Lỗi gọi Gemini API: ${response.statusCode} - ${response.body}');
+      throw Exception('Gemini API error: ${response.reasonPhrase}');
+    }
+  }
+
+  Future<List<String>> generateSuggestions(
+      List<MessageModel> chatHistory) async {
+    const prompt = '''
+     Dựa trên đoạn trò chuyện trước đó , gợi ý 4 câu hỏi ngắn gọn nhất hoặc yêu cầu tiếp theo mà người dùng có thể hỏi.
+  Viết mỗi câu một dòng, không đánh số, không giải thích (không cần phải ghi lại câu hỏi ).
+    ''';
+
+    try {
+      final responseText = await generateSmart(
+        prompt: prompt,
+        messages: chatHistory,
+      );
+
+      final lines = responseText
+          .split('\n')
+          .map((e) => e.replaceFirst(RegExp(r'^[-•]\s*'), '').trim())
+          .where((line) => line.isNotEmpty)
+          .toList();
+
+      return lines;
+    } catch (e) {
+      print("❌ Lỗi khi tạo gợi ý: $e");
+      return [];
+    }
+  }
+}

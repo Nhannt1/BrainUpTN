@@ -56,6 +56,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => Home(),
       ),
       GoRoute(
+        path: ProfilePage.rootLocation,
+        builder: (context, state) => ProfilePage(),
+      ),
+      GoRoute(
         path: ChatAiPage.rootLocation,
         builder: (context, state) => ChatAiPage(),
       ),
