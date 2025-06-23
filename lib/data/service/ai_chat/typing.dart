@@ -1,3 +1,4 @@
+import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,7 +14,7 @@ class TypingIndicator extends StatelessWidget {
         Container(
           padding: EdgeInsets.all(10.r),
           decoration: BoxDecoration(
-            color: Colors.grey[300],
+            color: AppColors.athensGray,
             borderRadius: BorderRadius.circular(16.r),
           ),
           child: Row(
@@ -32,18 +33,13 @@ class TypingIndicator extends StatelessWidget {
   }
 }
 
-class Dot extends StatelessWidget {
-  const Dot({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 6,
-      height: 6,
-      decoration: const BoxDecoration(
-        color: Colors.grey,
-        shape: BoxShape.circle,
-      ),
-    );
-  }
+Widget Dot() {
+  return Container(
+    width: 6.w,
+    height: 6.h,
+    decoration: const BoxDecoration(
+      color: Colors.grey,
+      shape: BoxShape.circle,
+    ),
+  );
 }

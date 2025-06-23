@@ -1,4 +1,4 @@
-import 'package:brainup/presentation/pages/chat_ai/widgets/toggle_btn.dart';
+import 'package:brainup/data/service/ai_chat/toggle_btn.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:brainup/shared/themes/chammy_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -10,13 +10,14 @@ class ChatInputBar extends StatefulWidget {
   final VoidCallback onPickImage;
   final VoidCallback onVoiceInput;
   final VoidCallback? onStopListening;
-  const ChatInputBar(
-      {super.key,
-      required this.controller,
-      required this.onSend,
-      required this.onVoiceInput,
-      required this.onPickImage,
-      required this.onStopListening});
+  const ChatInputBar({
+    super.key,
+    required this.controller,
+    required this.onSend,
+    required this.onVoiceInput,
+    required this.onPickImage,
+    required this.onStopListening,
+  });
 
   @override
   State<ChatInputBar> createState() => _ChatInputBarState();

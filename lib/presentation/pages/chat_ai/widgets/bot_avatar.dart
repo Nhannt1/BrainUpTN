@@ -1,4 +1,4 @@
-import 'package:brainup/presentation/pages/chat_ai/widgets/typing_dot.dart';
+import 'package:brainup/data/service/ai_chat/typing_dot.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

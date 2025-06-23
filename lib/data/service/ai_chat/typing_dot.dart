@@ -1,4 +1,6 @@
+import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TypingDots extends StatefulWidget {
   const TypingDots({super.key});
@@ -25,19 +27,19 @@ class _TypingDotsState extends State<TypingDots>
     dotOne = Tween(begin: 0.3, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.0, 0.6, curve: Curves.easeInOut),
+        curve: Interval(0.0, 0.6, curve: Curves.easeInOut),
       ),
     );
     dotTwo = Tween(begin: 0.3, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.2, 0.8, curve: Curves.easeInOut),
+        curve: Interval(0.2, 0.8, curve: Curves.easeInOut),
       ),
     );
     dotThree = Tween(begin: 0.3, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.4, 1.0, curve: Curves.easeInOut),
+        curve: Interval(0.4, 1.0, curve: Curves.easeInOut),
       ),
     );
   }
@@ -50,9 +52,9 @@ class _TypingDotsState extends State<TypingDots>
 
   Widget dot(Animation<double> animation) => FadeTransition(
         opacity: animation,
-        child: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 2),
-          child: CircleAvatar(radius: 4, backgroundColor: Colors.blueAccent),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 2.w),
+          child: CircleAvatar(radius: 4, backgroundColor: AppColors.royalBlue),
         ),
       );
 

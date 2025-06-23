@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:brainup/presentation/pages/chat_ai/widgets/message_model.dart';
+import 'package:brainup/domain/model_ai/message_model.dart';
 import 'package:http/http.dart' as http;
 
 class GeminiService {
@@ -116,15 +116,22 @@ class GeminiService {
 
   Future<List<String>> generateSuggestions(
       List<MessageModel> chatHistory) async {
-    const prompt = '''
-     Dựa trên đoạn trò chuyện trước đó , gợi ý 4 câu hỏi ngắn gọn nhất hoặc yêu cầu tiếp theo mà người dùng có thể hỏi.
-  Viết mỗi câu một dòng, không đánh số, không giải thích (không cần phải ghi lại câu hỏi ).
-    ''';
+    final List<MessageModel> historyForSuggestions = List.from(chatHistory);
 
+    historyForSuggestions.add(MessageModel(
+      text:
+          '''Dựa trên đoạn trò chuyện trước đó, gợi ý 4 câu hỏi ngắn gọn (tối đa 10 chữ mỗi câu) mà người dùng có thể hỏi để tiếp tục cuộc trò chuyện với bạn.
+      Ví dụ: "Làm sao để...", "Giải thích thêm về...", "Cho tôi biết thêm...", "Cách thức hoạt động..."
+      Mỗi gợi ý trên một dòng, không đánh số, không giải thích,không cần phải ghi lại đề tài gợi ý đây là gợi ý 4 câu hỏi tiếp theo.''',
+      isUser: true,
+      time: '',
+      imageFile: null,
+    ));
     try {
       final responseText = await generateSmart(
-        prompt: prompt,
-        messages: chatHistory,
+        prompt:
+            "Gợi ý câu hỏi tiếp theo của người sử dụng chat ai dựa trên đoạn hội thoại,không cần phải ghi lại gợi ý đây là gợi ý 4 câu hỏi tiếp theo.",
+        messages: historyForSuggestions,
       );
 
       final lines = responseText

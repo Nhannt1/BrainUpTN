@@ -1,313 +1,233 @@
-import 'dart:io';
-
-import 'package:brainup/domain/repository/source/gemini_service.dart';
+import 'package:brainup/presentation/base/povider_chat_ai/ai_chat_provider.dart';
 import 'package:brainup/presentation/pages/chat_ai/widgets/bot_avatar.dart';
 import 'package:brainup/presentation/pages/chat_ai/widgets/bot_massage.dart';
 import 'package:brainup/presentation/pages/chat_ai/widgets/chat_input.dart';
-import 'package:brainup/presentation/pages/chat_ai/widgets/chat_option.dart';
-import 'package:brainup/presentation/pages/chat_ai/widgets/message_model.dart';
+import 'package:brainup/data/service/ai_chat/chat_option.dart';
+import 'package:brainup/domain/model_ai/message_model.dart';
 import 'package:brainup/presentation/pages/chat_ai/widgets/select_image_pre.dart';
 import 'package:brainup/presentation/pages/chat_ai/widgets/sugges_action.dart';
 import 'package:brainup/presentation/pages/chat_ai/widgets/user_massage.dart';
+import 'package:brainup/presentation/base/povider_chat_ai/voice_input_controller.dart';
 import 'package:brainup/presentation/pages/home/home_page.dart';
-import 'package:drift/drift.dart' as drift;
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:speech_to_text/speech_to_text.dart' as stt;
 
-import '../../../domain/ai_entity/app_database.dart';
-
-class ChatAiPage extends StatefulWidget {
-  const ChatAiPage({super.key});
-  static const rootLocation = '/ChatAiPage';
+class PageAi extends ConsumerStatefulWidget {
+  const PageAi({super.key});
+  static const rootLocation = '/ChatAi';
 
   @override
-  State<ChatAiPage> createState() => _ChatAiPageState();
+  ConsumerState<PageAi> createState() => _PageAiState();
 }
 
-class _ChatAiPageState extends State<ChatAiPage> {
-  final TextEditingController _controller = TextEditingController();
-  final TextEditingController _voicecontroller = TextEditingController();
-  final List<MessageModel> _messages = [];
+class _PageAiState extends ConsumerState<PageAi> {
   final ScrollController _scrollController = ScrollController();
-  File? _selectedImage;
-  final GeminiService _gemini = GeminiService();
-  bool isTyping = false;
-  late AppDatabase _db;
-  late String _userId;
-  late stt.SpeechToText _speech;
-  bool _isListening = false;
-  String _voiceText = "";
-
+  final TextEditingController textController = TextEditingController();
+  late final ProviderSubscription<List<MessageModel>> _removeListener;
+  final GlobalKey<SuggestedActionsState> _suggestedKey =
+      GlobalKey<SuggestedActionsState>();
+  bool showScrollDownButton = false;
+  FlutterTts flutterTts = FlutterTts();
   @override
   void initState() {
     super.initState();
-    _db = AppDatabase();
-    _userId = FirebaseAuth.instance.currentUser?.uid ?? 'guest';
-    _loadMessages();
-    _speech = stt.SpeechToText();
-  }
-
-  void _stopListening() {
-    _speech.stop();
-    setState(() {
-      _isListening = false;
+    _removeListener = ref.listenManual<List<MessageModel>>(chatMessagesProvider,
+        (prev, next) {
+      if (prev?.length != next.length) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (_scrollController.hasClients) {
+            _scrollController.animateTo(
+              _scrollController.position.maxScrollExtent,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeOut,
+            );
+          }
+        });
+      }
     });
-  }
-
-  void _startVoiceInput() async {
-    final micStatus = await Permission.microphone.request();
-
-    if (micStatus != PermissionStatus.granted) {
-      print("Microphone permission denied");
-      return;
-    }
-    if (!_isListening) {
-      bool available = await _speech.initialize(
-        onStatus: (val) => print('STATUS: $val'),
-        onError: (val) => print('ERROR: $val'),
-      );
-
-      if (available) {
-        setState(() => _isListening = true);
-        _speech.listen(
-          onResult: (val) {
-            setState(() {
-              _voiceText = val.recognizedWords;
-              _controller.text = _voiceText;
-            });
-
-            if (val.finalResult) {
-              _sendMessageFromVoice(_voiceText);
-              _speech.stop();
-              setState(() => _isListening = false);
-            }
-          },
-          localeId: 'vi_VN',
-        );
-      } else {}
-    } else {
-      _speech.stop();
-      setState(() => _isListening = false);
-    }
-  }
-
-  void _sendMessageFromVoice(String text) {
-    if (text.trim().isEmpty) return;
-
-    setState(() {
-      _voicecontroller.text = text;
+    ref.listenManual<String>(voiceTextProvider, (prev, next) {
+      if (next.isNotEmpty && textController.text.isEmpty) {
+        textController.text = next;
+      }
+      if (next.isEmpty && textController.text.isNotEmpty) {
+        textController.clear();
+      }
     });
+    _scrollController.addListener(() {
+      final isAtBottom = _scrollController.offset >=
+          _scrollController.position.maxScrollExtent - 50;
 
-    setState(() => _isListening = false);
-    _controller.clear();
-  }
-
-  Future<void> _saveMessage({
-    required String text,
-    required String time,
-    required bool isUser,
-    String? imagePath,
-  }) async {
-    await _db.insertMessage(MessagesCompanion(
-      userId: drift.Value(_userId),
-      textMessage: drift.Value(text),
-      time: drift.Value(time),
-      isUser: drift.Value(isUser),
-      imagePath: drift.Value(imagePath),
-    ));
-  }
-
-  void _loadMessages() async {
-    final dbMessages = await _db.getMessages(_userId);
-    setState(() {
-      _messages.addAll(dbMessages.map((e) => MessageModel(
-            text: e.textMessage,
-            time: e.time,
-            imageFile: e.imagePath != null ? File(e.imagePath!) : null,
-            isUser: e.isUser,
-          )));
+      if (showScrollDownButton == isAtBottom) {
+        setState(() {
+          showScrollDownButton = !isAtBottom;
+        });
+      }
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
-  }
-
-  void _sendMessage() async {
-    final text = _controller.text.trim();
-    final File? imageToSend = _selectedImage;
-    if (text.isEmpty && _selectedImage == null) return;
-
-    setState(() {
-      _messages.add(MessageModel(
-        text: text,
-        time: TimeOfDay.now().format(context),
-        imageFile: _selectedImage,
-        isUser: true,
-      ));
-      isTyping = true;
-    });
-    await _saveMessage(
-      text: text,
-      time: TimeOfDay.now().format(context),
-      isUser: true,
-      imagePath: imageToSend?.path,
-    );
-    _controller.clear();
-    _selectedImage = null;
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
-    try {
-      final botReply = await _gemini.generateSmart(
-          prompt: text, imageFile: imageToSend, messages: _messages);
-      setState(() {
-        _messages.add(MessageModel(
-            text: botReply,
-            time: TimeOfDay.now().format(context),
-            imageFile: null,
-            isUser: false));
-        isTyping = false;
-
-        _selectedImage = null;
-      });
-      await _saveMessage(
-        text: botReply,
-        time: TimeOfDay.now().format(context),
-        isUser: false,
-        imagePath: null,
-      );
-      WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
-    } catch (e) {
-      _messages.add(MessageModel(
-        text: "Lỗi: $e",
-        time: TimeOfDay.now().format(context),
-        imageFile: null,
-        isUser: false,
-      ));
-      isTyping = false;
-      _selectedImage = null;
-    }
-  }
-
-  void _pickImage() async {
-    final picker = ImagePicker();
-    final picked = await picker.pickImage(source: ImageSource.gallery);
-    if (picked != null) {
-      setState(() {
-        _selectedImage = File(picked.path);
-      });
-    }
-  }
-
-  void _scrollToBottom() {
-    if (_scrollController.hasClients) {
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeOut,
-      );
-    }
   }
 
   @override
   void dispose() {
+    _removeListener.closed;
     _scrollController.dispose();
-    _controller.dispose();
+    textController.dispose();
+    FlutterTts().stop();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("BrAInUp", style: TextStyle(fontWeight: FontWeight.bold)),
-            Text("Personal Learning Assistant", style: TextStyle(fontSize: 12)),
+    final message = ref.watch(chatMessagesProvider);
+    final controller = ref.read(chatMessagesProvider.notifier);
+
+    final selectedImage = ref.watch(selectImageProvider);
+    final isTyping = ref.watch(isTypingProvider);
+    final voiceText = ref.watch(voiceTextProvider);
+
+    return Stack(children: [
+      Scaffold(
+        appBar: AppBar(
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("BrAInUp", style: TextStyle(fontWeight: FontWeight.bold)),
+              Text("Personal Learning Assistant",
+                  style: TextStyle(fontSize: 12)),
+            ],
+          ),
+          leading: InkWell(
+              onTap: () async {
+                context.go(Home.rootLocation);
+                await flutterTts.stop();
+              },
+              child: Icon(Icons.arrow_back)),
+          actions: [
+            ChatOptionsMenu(
+              onClearChat: () {
+                ref.watch(chatMessagesProvider.notifier).clearMessage();
+              },
+            ),
           ],
         ),
-        leading: InkWell(
-            onTap: () => context.go(Home.rootLocation),
-            child: Icon(Icons.arrow_back)),
-        actions: [
-          ChatOptionsMenu(
-            db: _db,
-            userId: _userId,
-            onClearChat: () {
-              setState(() {
-                _messages.clear();
-              });
-            },
-          ),
-        ],
-      ),
-      resizeToAvoidBottomInset: true,
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: SafeArea(
-          child: Column(
+        body: GestureDetector(
+          onTap: FocusScope.of(context).unfocus,
+          child: SafeArea(
+              child: Column(
             children: [
               Expanded(
                 child: ListView.builder(
-                  controller: _scrollController,
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  itemCount: _messages.length + (isTyping ? 1 : 0),
-                  itemBuilder: (context, index) {
-                    if (isTyping && index == _messages.length) {
-                      return TypingIndicatorBubble();
-                    }
-                    final msg = _messages[index];
-                    return msg.isUser
-                        ? UserMessage(
-                            text: msg.text,
-                            time: msg.time,
-                            imageFile: msg.imageFile,
-                          )
-                        : BotMessage(
-                            text: msg.text,
-                            time: msg.time,
-                            imageFile: msg.imageFile,
-                          );
-                  },
-                ),
+                    controller: _scrollController,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                    itemCount: message.length + (isTyping ? 1 : 0),
+                    itemBuilder: (context, index) {
+                      if (isTyping && index == message.length) {
+                        return TypingIndicatorBubble();
+                      }
+                      final msg = message[index];
+                      return msg.isUser
+                          ? UserMessage(
+                              text: msg.text,
+                              time: msg.time,
+                              imageFile: msg.imageFile,
+                            )
+                          : BotMessage(
+                              text: msg.text,
+                              time: msg.time,
+                              imageFile: msg.imageFile,
+                            );
+                    }),
               ),
-              if (_selectedImage != null)
+              if (selectedImage != null)
                 SelectedImagePreview(
-                  selectedImage: _selectedImage!,
-                  onSendPressed: _sendMessage,
+                  selectedImage: selectedImage,
+                  onSendPressed: () {
+                    controller.sendMessage(textController.text, context,
+                        selectedImage: selectedImage);
+                    ref.read(selectImageProvider.notifier).state = null;
+                    textController.clear();
+                  },
                   onCancelPressed: () {
-                    setState(() {
-                      _selectedImage = null;
-                      _controller.clear();
-                    });
+                    ref.read(selectImageProvider.notifier).state = null;
+                    textController.clear();
                   },
                 )
               else
                 SuggestedActions(
-                  messages: _messages,
+                  key: _suggestedKey,
+                  messages: List.from(message),
                   onSuggestionTap: (suggestionText) {
                     setState(() {
-                      _controller.text = suggestionText;
+                      textController.text = suggestionText;
                     });
-                    _sendMessage();
+                    controller.sendMessage(
+                      textController.text,
+                      context,
+                      onBotDone: () {
+                        _suggestedKey.currentState?.fetchSuggestions();
+                      },
+                    );
+                    textController.clear();
                   },
                 ),
               ChatInputBar(
-                controller: _controller,
-                onSend: _sendMessage,
-                onPickImage: _pickImage,
-                onVoiceInput: _startVoiceInput,
+                controller: textController,
+                onSend: () {
+                  final inputText = textController.text.trim();
+                  final textToSend = inputText.isNotEmpty
+                      ? inputText
+                      : (voiceText.isNotEmpty ? voiceText : '');
+
+                  if (textToSend.isEmpty) return;
+                  controller.sendMessage(
+                    textToSend,
+                    context,
+                    selectedImage: selectedImage,
+                    onBotDone: () {
+                      _suggestedKey.currentState?.fetchSuggestions();
+                    },
+                  );
+
+                  textController.clear();
+                },
+                onPickImage: () => controller.pickImage(),
+                onVoiceInput: () async {
+                  await ref
+                      .read(voiceInputControllerProvider)
+                      .startListening(context, textController);
+                },
                 onStopListening: () {
-                  _stopListening();
+                  ref
+                      .read(voiceInputControllerProvider)
+                      .stopListening(context, textController);
                 },
               ),
             ],
-          ),
+          )),
         ),
       ),
-    );
+      Positioned(
+        bottom: 200,
+        right: 1,
+        child: showScrollDownButton
+            ? FloatingActionButton(
+                mini: true,
+                backgroundColor: AppColors.athensGray,
+                shape: const CircleBorder(),
+                onPressed: () {
+                  _scrollController.animateTo(
+                    _scrollController.position.maxScrollExtent,
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.easeOut,
+                  );
+                },
+                child: Icon(Icons.arrow_downward),
+              )
+            : SizedBox.shrink(),
+      )
+    ]);
   }
 }

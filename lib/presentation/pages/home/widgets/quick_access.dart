@@ -23,7 +23,7 @@ class QuickAccessRow extends StatelessWidget {
                 icon: FontAwesomeIcons.brain,
                 label: context.l10n!.aichat,
                 onTap: () {
-                  context.go(ChatAiPage.rootLocation);
+                  context.go(PageAi.rootLocation);
                 }),
           ),
           SizedBox(

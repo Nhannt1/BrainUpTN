@@ -1,10 +1,12 @@
 import 'dart:io';
 
-import 'package:brainup/presentation/pages/chat_ai/widgets/text_speed_bot.dart';
+import 'package:brainup/data/service/ai_chat/text_speed_bot.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class BotMessage extends StatefulWidget {
   final String text;
@@ -22,6 +24,7 @@ class BotMessage extends StatefulWidget {
 
 class _BotMessageState extends State<BotMessage> {
   final tts = TextToSpeechService();
+  late stt.SpeechToText _speech;
   bool isSpeaking = false;
 
   void _handleTTS() async {
@@ -46,14 +49,14 @@ class _BotMessageState extends State<BotMessage> {
         alignment: Alignment.centerLeft,
         child: ConstrainedBox(
           constraints: BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width * 0.8,
+            maxWidth: MediaQuery.of(context).size.width * 0.8.w,
           ),
           child: IntrinsicWidth(
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 12.w),
               decoration: BoxDecoration(
                 color: AppColors.white,
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(12.r),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

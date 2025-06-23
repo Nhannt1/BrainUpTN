@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:brainup/domain/ai_entity/message.dart';
-import 'package:brainup/presentation/pages/chat_ai/widgets/message_model.dart';
+import 'package:brainup/data/source/local/message.dart';
+import 'package:brainup/domain/model_ai/message_model.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
