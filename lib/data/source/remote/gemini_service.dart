@@ -13,7 +13,7 @@ class GeminiService {
     File? imageFile,
   }) async {
     final url = Uri.parse(
-      'https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=$apiKey',
+      'https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash-lite:generateContent?key=$apiKey',
     );
     final headers = {'Content-Type': 'application/json'};
     final recentMessages = messages.length > 10
@@ -110,6 +110,9 @@ class GeminiService {
       return text;
     } else {
       print('❌ Lỗi gọi Gemini API: ${response.statusCode} - ${response.body}');
+      if (response.statusCode == 429) {
+        throw Exception('Gemini API error: Too Many Requests (429)');
+      }
       throw Exception('Gemini API error: ${response.reasonPhrase}');
     }
   }
@@ -128,6 +131,7 @@ class GeminiService {
       imageFile: null,
     ));
     try {
+      await Future.delayed(Duration(seconds: 1));
       final responseText = await generateSmart(
         prompt:
             "Gợi ý câu hỏi tiếp theo của người sử dụng chat ai dựa trên đoạn hội thoại,không cần phải ghi lại gợi ý đây là gợi ý 4 câu hỏi tiếp theo.",
