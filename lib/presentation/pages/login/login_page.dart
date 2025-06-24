@@ -38,61 +38,64 @@ class _LoginPage extends State<LoginPage> {
           ),
         ),
       ),
-      body: SafeArea(
-          child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 32.h),
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: AppColors.wildSand,
-                  borderRadius: BorderRadius.circular(16.r),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade400,
-                      spreadRadius: 2.h,
-                      blurRadius: 2.h,
-                      offset: Offset(1.h, 4.h),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding:
-                          EdgeInsets.only(left: 24.w, right: 24.w, top: 28.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        spacing: 20.w,
-                        children: [
-                          _buildTagButton("Login", isLogin, () {
-                            setState(() => isLogin = true);
-                          }),
-                          _buildTagButton("Register", !isLogin, () {
-                            setState(() => isLogin = false);
-                          })
-                        ],
+      body: GestureDetector(
+        onTap: FocusScope.of(context).unfocus,
+        child: SafeArea(
+            child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 32.h),
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: AppColors.wildSand,
+                    borderRadius: BorderRadius.circular(16.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.shade400,
+                        spreadRadius: 2.h,
+                        blurRadius: 2.h,
+                        offset: Offset(1.h, 4.h),
                       ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(top: 28.h, left: 24.w, right: 24.w),
-                      child: isLogin ? LoginForm() : RegisterForm(),
-                    ),
-                  ],
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsets.only(left: 24.w, right: 24.w, top: 28.h),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          spacing: 20.w,
+                          children: [
+                            _buildTagButton("Login", isLogin, () {
+                              setState(() => isLogin = true);
+                            }),
+                            _buildTagButton("Register", !isLogin, () {
+                              setState(() => isLogin = false);
+                            })
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsets.only(top: 28.h, left: 24.w, right: 24.w),
+                        child: isLogin ? LoginForm() : RegisterForm(),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 32.h,
-              ),
-              if (!isLogin) BottomRegister()
-            ],
+                SizedBox(
+                  height: 32.h,
+                ),
+                if (!isLogin) BottomRegister()
+              ],
+            ),
           ),
-        ),
-      )),
+        )),
+      ),
     );
   }
 }

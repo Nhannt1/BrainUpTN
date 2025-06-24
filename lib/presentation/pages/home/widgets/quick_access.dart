@@ -1,3 +1,4 @@
+import 'package:brainup/presentation/pages/chat_ai/chat_ai_page.dart';
 import 'package:brainup/presentation/pages/home/widgets/quick_access_item.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:brainup/shared/extensions/context_ext.dart';
@@ -21,7 +22,9 @@ class QuickAccessRow extends StatelessWidget {
             child: QuickAccessItem(
                 icon: FontAwesomeIcons.brain,
                 label: context.l10n!.aichat,
-                onTap: () {}),
+                onTap: () {
+                  context.go(PageAi.rootLocation);
+                }),
           ),
           SizedBox(
             width: 12.w,

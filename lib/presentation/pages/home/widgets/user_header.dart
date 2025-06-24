@@ -24,7 +24,7 @@ class UserHeader extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
         child: Row(
           children: [
-            InkWell(
+            GestureDetector(
               onTap: () {
                 context.go(ProfilePage.rootLocation);
               },

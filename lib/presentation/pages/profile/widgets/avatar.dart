@@ -18,14 +18,14 @@ class Avatar extends StatelessWidget {
                   width: 112.w,
                   height: 112.h,
                   decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(9999.r)),
-                  child: Padding(
-                    padding: EdgeInsets.all(3.w),
-                    child: CircleAvatar(
-                      radius: 40.r,
-                      backgroundImage:
-                          NetworkImage('https://i.imgur.com/QCNbOAo.png'),
+                    color: AppColors.white,
+                    shape: BoxShape.circle,
+                    border: Border.all(color: AppColors.white, width: 3.w),
+                  ),
+                  child: CircleAvatar(
+                    radius: 40,
+                    backgroundImage: NetworkImage(
+                      'https://i.imgur.com/QCNbOAo.png',
                     ),
                   ),
                 ),
