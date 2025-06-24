@@ -27,6 +27,10 @@ class AppDatabase extends _$AppDatabase {
   Future<int> deleteMessages(String userId) {
     return (delete(messages)..where((tbl) => tbl.userId.equals(userId))).go();
   }
+
+  Future<int> deleteAllMessages() {
+    return delete(messages).go();
+  }
 }
 
 LazyDatabase _openConnection() {

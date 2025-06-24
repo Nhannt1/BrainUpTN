@@ -10,6 +10,8 @@ class LoginWidget extends StatefulWidget {
   final TextEditingController controller;
   final IconData? prefixIcon;
   final String? Function(String?)? validator;
+  final bool forceValidate;
+
   const LoginWidget(
       {super.key,
       required this.label,
@@ -17,7 +19,8 @@ class LoginWidget extends StatefulWidget {
       required this.isPassword,
       required this.controller,
       this.prefixIcon,
-      this.validator});
+      this.validator,
+      this.forceValidate = false});
 
   @override
   State<LoginWidget> createState() => _LoginWidget();
@@ -25,6 +28,14 @@ class LoginWidget extends StatefulWidget {
 
 class _LoginWidget extends State<LoginWidget> {
   bool _obscuretext = true;
+  bool _hasInteracted = false;
+  final _formkey = GlobalKey<FormState>();
+  String? _customValidator(String? value) {
+    final needToValidate = _hasInteracted || widget.forceValidate;
+    if (!needToValidate) return null;
+    return widget.validator?.call(value);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(

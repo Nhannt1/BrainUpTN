@@ -1,7 +1,10 @@
+import 'package:another_flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:brainup/data/auth/auth_login.dart';
 import 'package:brainup/presentation/pages/login/verify_mail_page.dart';
 import 'package:brainup/presentation/pages/login/widgets/button_widget.dart';
 import 'package:brainup/presentation/pages/login/widgets/register_widget.dart';
+import 'package:brainup/presentation/pages/login/widgets/show_flushbar.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:brainup/shared/extensions/context_ext.dart';
 import 'package:brainup/shared/themes/chammy_text_styles.dart';
@@ -29,6 +32,8 @@ class _RegisterFormState extends State<RegisterForm> {
   final repasswordController = TextEditingController();
   bool isCheckedIcon = false;
   final AuthLogin auth = AuthLogin();
+  bool _submitted = false;
+  final user = FirebaseAuth.instance.currentUser;
   @override
   void dispose() {
     emailController.dispose();
@@ -53,14 +58,15 @@ class _RegisterFormState extends State<RegisterForm> {
             hintText: context.l10n!.enteryourname,
             controller: nameController,
             isPassword: false,
-            prefixIcon: FontAwesomeIcons.lock,
+            forceValidate: _submitted,
+            prefixIcon: Icons.person,
             validator: (value) {
-              if (value == null || value.isEmpty)
-                return context.l10n!.pleaseenteryourname;
+              if (value == null) return context.l10n!.pleaseenteryourname;
 
               if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value.trim())) {
                 return context.l10n!.incorrectformat;
               }
+              return null;
             },
           ),
           SizedBox(
@@ -71,7 +77,8 @@ class _RegisterFormState extends State<RegisterForm> {
             hintText: "name@gmail.com",
             controller: emailController,
             isPassword: false,
-            prefixIcon: FontAwesomeIcons.lock,
+            forceValidate: _submitted,
+            prefixIcon: Icons.email,
             validator: (value) {
               if (value == null || value.isEmpty)
                 return context.l10n!.pleaseenteremail;
@@ -79,6 +86,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   .hasMatch(value.trim())) {
                 return context.l10n!.incorrectformat;
               }
+              return null;
             },
           ),
           SizedBox(
@@ -89,13 +97,15 @@ class _RegisterFormState extends State<RegisterForm> {
             hintText: context.l10n!.enteryourphone,
             controller: phoneNumberController,
             isPassword: false,
-            prefixIcon: FontAwesomeIcons.lock,
+            forceValidate: _submitted,
+            prefixIcon: FontAwesomeIcons.phone,
             validator: (value) {
               if (value == null || value.isEmpty)
                 return context.l10n!.pleaseenteryourphonenumber;
               if (!RegExp(r'^0[0-9]{9}$').hasMatch(value.trim())) {
                 return context.l10n!.incorrectformat;
               }
+              return null;
             },
           ),
           SizedBox(
@@ -106,13 +116,15 @@ class _RegisterFormState extends State<RegisterForm> {
             hintText: context.l10n!.enteryourage,
             controller: ageController,
             isPassword: false,
-            prefixIcon: FontAwesomeIcons.lock,
+            forceValidate: _submitted,
+            prefixIcon: FontAwesomeIcons.calendar,
             validator: (value) {
               if (value == null || value.isEmpty)
                 return context.l10n!.enteryourage;
               if (!RegExp(r'^\d{2}$').hasMatch(value.trim())) {
                 return context.l10n!.incorrectformat;
               }
+              return null;
             },
           ),
           SizedBox(
@@ -123,6 +135,7 @@ class _RegisterFormState extends State<RegisterForm> {
             hintText: context.l10n!.createapassword,
             controller: passwordController,
             isPassword: true,
+            forceValidate: _submitted,
             prefixIcon: FontAwesomeIcons.lock,
             validator: (value) {
               if (value == null || value.isEmpty)
@@ -140,6 +153,7 @@ class _RegisterFormState extends State<RegisterForm> {
             hintText: context.l10n!.createapassword,
             controller: repasswordController,
             isPassword: true,
+            forceValidate: _submitted,
             prefixIcon: FontAwesomeIcons.lock,
             validator: (value) {
               if (value == null || value.isEmpty)
@@ -155,10 +169,11 @@ class _RegisterFormState extends State<RegisterForm> {
           Row(
             children: [
               InkWell(
-                onTap: () {
+                onTap: () async {
                   setState(() {
                     isCheckedIcon = !isCheckedIcon;
                   });
+                  await Future.delayed(Duration.zero);
                 },
                 child: Icon(
                   isCheckedIcon
@@ -197,44 +212,49 @@ class _RegisterFormState extends State<RegisterForm> {
             height: 20.h,
           ),
           ButtonWidget(
-            text: context.l10n!.register,
-            ontap: () async {
-              if (_formkey.currentState!.validate()) {
+              text: context.l10n!.register,
+              ontap: () async {
+                setState(() {
+                  _submitted = true;
+                });
+                await Future.delayed(Duration.zero);
+                if (!_formkey.currentState!.validate()) return;
                 if (!isCheckedIcon) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                        content: Text(context.l10n!.pleaseagreetotheterms)),
+                  ShowFlushbar.showError(
+                    context,
+                    message: context.l10n!.pleaseagreetotheterms,
                   );
                   return;
                 }
-                if (passwordController.text == repasswordController.text) {
-                  try {
-                    await auth.signUpSaveUser(
-                        fullname: nameController.text,
-                        email: emailController.text.trim(),
-                        phoneNumber: phoneNumberController.text.trim(),
-                        age: ageController.text.trim(),
-                        password: passwordController.text.trim());
-                    context.go(VerifyEmailPage.rootLocation);
+                if (passwordController.text != repasswordController.text) {
+                  ShowFlushbar.showError(
+                    context,
+                    message: context.l10n!.passwordsdonotmatch,
+                  );
+                  return;
+                }
+                try {
+                  await auth.signUpSaveUser(
+                    fullname: nameController.text,
+                    email: emailController.text.trim(),
+                    phoneNumber: phoneNumberController.text.trim(),
+                    age: ageController.text.trim(),
+                    password: passwordController.text.trim(),
+                  );
+                  ShowFlushbar.showSuccess(
+                    context,
+                    message: context.l10n!.registeredsuccessfully,
+                  );
+                  context.go(VerifyEmailPage.rootLocation);
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == 'email-already-in-use') {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                          content: Text(context.l10n!.registeredsuccessfully)),
-                    );
-                  } on FirebaseAuthException catch (e) {
-                    if (e.code == 'email-already-in-use') {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                            content: Text(context.l10n!.emailalreadyinuse)),
-                      );
-                    }
-                  } catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Registration error: $e')),
+                      SnackBar(content: Text(context.l10n!.emailalreadyinuse)),
                     );
                   }
-                } else {
+                } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(context.l10n!.passwordsdonotmatch)),
+                    SnackBar(content: Text('Registration error: $e')),
                   );
                 }
                 nameController.clear();
@@ -243,9 +263,12 @@ class _RegisterFormState extends State<RegisterForm> {
                 passwordController.clear();
                 repasswordController.clear();
                 ageController.clear();
-              }
-            },
-          ),
+
+                setState(() {
+                  _submitted = false;
+                  isCheckedIcon = false;
+                });
+              }),
           SizedBox(
             height: 20.h,
           ),

@@ -1,19 +1,25 @@
 import 'package:brainup/data/repository/source/local/user_local_data_source.dart';
 import 'package:brainup/di/di.dart';
+import 'package:brainup/presentation/base/povider_chat_ai/ai_chat_provider.dart';
 import 'package:brainup/presentation/pages/login/login_page.dart';
 import 'package:brainup/presentation/pages/profile/profile_page.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:brainup/shared/themes/chammy_text_styles.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:brainup/data/source/local/app_database.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart'; // thêm import này nếu chưa có
 
-class UserHeader extends StatelessWidget {
+class UserHeader extends ConsumerWidget {
   final UserLocalDataSource userLocal = getIt<UserLocalDataSource>();
+  final AppDatabase db = AppDatabase();
+  final String userId = FirebaseAuth.instance.currentUser?.uid ?? 'guest';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
         child: Container(
       decoration: BoxDecoration(
@@ -42,9 +48,7 @@ class UserHeader extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              width: 12.w,
-            ),
+            SizedBox(width: 12.w),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,6 +70,7 @@ class UserHeader extends StatelessWidget {
                     await userLocal.saveHasLogin(hasLogin: false);
                     final prefs = await SharedPreferences.getInstance();
                     await prefs.remove('hasShownWelcomePopup');
+                    ref.read(chatMessagesProvider.notifier).clearMessage();
                     context.go(LoginPage.rootLocation);
                   },
                   child: Icon(Icons.notifications_none,

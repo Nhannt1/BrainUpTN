@@ -11,6 +11,7 @@ class RegisterWidget extends StatefulWidget {
   final TextEditingController controller;
   final IconData? prefixIcon;
   final String? Function(String?)? validator;
+  final bool forceValidate;
   const RegisterWidget(
       {super.key,
       required this.label,
@@ -18,7 +19,8 @@ class RegisterWidget extends StatefulWidget {
       required this.isPassword,
       required this.controller,
       this.prefixIcon,
-      this.validator});
+      this.validator,
+      this.forceValidate = false});
 
   @override
   State<RegisterWidget> createState() => _RegisterWidget();
@@ -26,7 +28,14 @@ class RegisterWidget extends StatefulWidget {
 
 class _RegisterWidget extends State<RegisterWidget> {
   bool _obscureText = true;
-  final _formkey = GlobalKey<FormState>();
+  bool _hasInteracted = false;
+
+  String? _customValidator(String? value) {
+    final needToValidate = _hasInteracted || widget.forceValidate;
+    if (!needToValidate) return null;
+    return widget.validator?.call(value);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -39,6 +48,9 @@ class _RegisterWidget extends State<RegisterWidget> {
         ),
         SizedBox(height: 8.h),
         TextFormField(
+          autovalidateMode: widget.forceValidate
+              ? AutovalidateMode.always
+              : AutovalidateMode.disabled,
           controller: widget.controller,
           obscureText: widget.isPassword ? _obscureText : false,
           style: TextStyle(fontSize: 16.sp),
@@ -60,11 +72,13 @@ class _RegisterWidget extends State<RegisterWidget> {
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16.r),
                 borderSide: BorderSide(color: AppColors.athensGray1)),
-            prefixIcon: Padding(
-              padding: EdgeInsets.all(14.w),
-              child: FaIcon(FontAwesomeIcons.lock,
-                  size: 17.sp, color: AppColors.spunPearl),
-            ),
+            prefixIcon: widget.prefixIcon != null
+                ? Padding(
+                    padding: EdgeInsets.all(14.w),
+                    child: FaIcon(widget.prefixIcon,
+                        size: 17.sp, color: AppColors.spunPearl),
+                  )
+                : null,
             suffixIcon: widget.isPassword
                 ? GestureDetector(
                     onTap: () {

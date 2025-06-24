@@ -4,6 +4,7 @@ import 'package:brainup/di/di.dart';
 import 'package:brainup/presentation/pages/home/home_page.dart';
 import 'package:brainup/presentation/pages/login/widgets/button_widget.dart';
 import 'package:brainup/presentation/pages/login/widgets/login_widget.dart';
+import 'package:brainup/presentation/pages/login/widgets/show_flushbar.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:brainup/shared/extensions/context_ext.dart';
 import 'package:brainup/shared/themes/chammy_text_styles.dart';
@@ -25,11 +26,15 @@ class _LoginFormState extends State<LoginForm> {
   final passwordController = TextEditingController();
   final AuthLogin auth = AuthLogin();
   final UserLocalDataSource userLocal = getIt<UserLocalDataSource>();
+  bool _submitted = false;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Form(
+          autovalidateMode:
+              _submitted ? AutovalidateMode.always : AutovalidateMode.disabled,
           key: _formkey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,6 +45,7 @@ class _LoginFormState extends State<LoginForm> {
                 hintext: "your@gmail.com",
                 isPassword: false,
                 controller: emailController,
+                forceValidate: _submitted,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
                     return context.l10n!.pleaseenteremail;
@@ -53,6 +59,7 @@ class _LoginFormState extends State<LoginForm> {
                 label: context.l10n!.password,
                 hintext: context.l10n!.password,
                 isPassword: true,
+                forceValidate: _submitted,
                 controller: passwordController,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
@@ -91,45 +98,38 @@ class _LoginFormState extends State<LoginForm> {
                 height: 32.h,
               ),
               ButtonWidget(
-                text: context.l10n!.login,
-                ontap: () async {
-                  if (_formkey.currentState!.validate()) {
+                  text: context.l10n!.login,
+                  ontap: () async {
+                    setState(() {
+                      _submitted = true;
+                    });
+                    if (!_formkey.currentState!.validate()) return;
+
                     SignInStatus result = await auth.signInWithEmail(
                         emailController.text.trim(),
                         passwordController.text.trim());
-
                     if (!mounted) return;
                     switch (result) {
                       case SignInStatus.success:
                         await userLocal.saveHasLogin(hasLogin: true);
+                        ShowFlushbar.showSuccess(context,
+                            message: context.l10n!.loginsuccessful);
                         context.go(Home.rootLocation);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text(context.l10n!.loginsuccessful)),
-                        );
                         emailController.clear();
                         passwordController.clear();
                         break;
-
                       case SignInStatus.emailNotVerified:
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text(context
-                                  .l10n!.pleaseverifyyouremailbeforeloggingin)),
-                        );
+                        ShowFlushbar.showError(context,
+                            message: context
+                                .l10n!.pleaseverifyyouremailbeforeloggingin);
                         break;
 
                       case SignInStatus.wrongCredentials:
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content:
-                                  Text(context.l10n!.incorrectemailorpassword)),
-                        );
+                        ShowFlushbar.showError(context,
+                            message: context.l10n!.incorrectemailorpassword);
                         break;
                     }
-                  }
-                },
-              )
+                  })
             ],
           ),
         ),
