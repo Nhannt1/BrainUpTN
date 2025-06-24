@@ -1,6 +1,6 @@
 import 'package:brainup/presentation/pages/chat_ai/chat_ai_page.dart';
 import 'package:brainup/presentation/pages/home/widgets/quick_access_item.dart';
-import 'package:brainup/presentation/pages/question/question_ai_page.dart';
+import 'package:brainup/presentation/pages/question/flashcard_page.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:brainup/shared/extensions/context_ext.dart';
 import 'package:brainup/shared/themes/chammy_text_styles.dart';
