@@ -39,8 +39,8 @@ class DeckInfoSection extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.r),
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.grey.shade400,
-                          blurRadius: 1,
+                          color: AppColors.athensGray1,
+                          blurRadius: 1.r,
                           offset: Offset(1, 1))
                     ]),
                 child: Padding(
@@ -64,7 +64,7 @@ class DeckInfoSection extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 8,
+          height: 8.h,
         ),
         Row(
           children: [

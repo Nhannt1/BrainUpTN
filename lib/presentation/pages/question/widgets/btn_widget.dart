@@ -94,15 +94,15 @@ class BtnWidget extends StatelessWidget {
                 Row(
                   children: [
                     ThemeCircle(color: AppColors.zumthor, isSelected: true),
-                    SizedBox(width: 8),
+                    SizedBox(width: 8.w),
                     Container(
-                      width: 24,
-                      height: 24,
+                      width: 24.h,
+                      height: 24.h,
                       decoration: BoxDecoration(
                         color: AppColors.wispPink,
-                        border:
-                            Border.all(color: AppColors.persianPink, width: 2),
-                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(
+                            color: AppColors.persianPink, width: 2.w),
+                        borderRadius: BorderRadius.circular(4.r),
                       ),
                     ),
                   ],
