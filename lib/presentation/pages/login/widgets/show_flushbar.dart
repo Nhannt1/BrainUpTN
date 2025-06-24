@@ -1,5 +1,7 @@
+import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:another_flushbar/flushbar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ShowFlushbar {
   static void showError(
@@ -8,26 +10,28 @@ class ShowFlushbar {
     String title = 'Oops!',
   }) {
     Flushbar(
-      backgroundColor: const Color(0xFFE57373), // Màu đỏ nhẹ
+      backgroundColor: AppColors.cinnabar, // Màu đỏ nhẹ
       flushbarPosition: FlushbarPosition.TOP,
-      borderRadius: BorderRadius.circular(16),
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-      padding: const EdgeInsets.all(16),
-      icon: const Icon(
+      borderRadius: BorderRadius.circular(16.r),
+      margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 40.h),
+      padding: EdgeInsets.all(16.r),
+      icon: Icon(
         Icons.error_outline,
-        color: Colors.white,
-        size: 28,
+        color: AppColors.white,
+        size: 28.sp,
       ),
       titleText: Text(
         title,
-        style: const TextStyle(
-            fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
+        style: TextStyle(
+            fontSize: 16.sp,
+            color: AppColors.white,
+            fontWeight: FontWeight.bold),
       ),
       messageText: Text(
         message,
-        style: const TextStyle(fontSize: 14, color: Colors.white),
+        style: TextStyle(fontSize: 14.sp, color: AppColors.white),
       ),
-      duration: const Duration(seconds: 3),
+      duration: Duration(seconds: 2),
       animationDuration: const Duration(milliseconds: 500),
     ).show(context);
   }
@@ -35,30 +39,32 @@ class ShowFlushbar {
   static void showSuccess(
     BuildContext context, {
     required String message,
-    String title = '',
+    String title = 'Successsful',
   }) {
     Flushbar(
-      backgroundColor: const Color(0xFF4CAF50), // Xanh lá (màu success)
+      backgroundColor: AppColors.shamrocknk,
       flushbarPosition: FlushbarPosition.TOP,
-      borderRadius: BorderRadius.circular(16),
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-      padding: const EdgeInsets.all(16),
-      icon: const Icon(
+      borderRadius: BorderRadius.circular(16.r),
+      margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 40.h),
+      padding: EdgeInsets.all(16.r),
+      icon: Icon(
         Icons.check_circle_outline,
-        color: Colors.white,
-        size: 28,
+        color: AppColors.white,
+        size: 28.sp,
       ),
       titleText: Text(
         title,
-        style: const TextStyle(
-            fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
+        style: TextStyle(
+            fontSize: 16.sp,
+            color: AppColors.white,
+            fontWeight: FontWeight.bold),
       ),
       messageText: Text(
         message,
-        style: const TextStyle(fontSize: 14, color: Colors.white),
+        style: TextStyle(fontSize: 14.sp, color: AppColors.white),
       ),
-      duration: const Duration(seconds: 3),
-      animationDuration: const Duration(milliseconds: 500),
+      duration: Duration(seconds: 3),
+      animationDuration: Duration(milliseconds: 500),
     ).show(context);
   }
 }

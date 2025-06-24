@@ -72,11 +72,13 @@ class _RegisterWidget extends State<RegisterWidget> {
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16.r),
                 borderSide: BorderSide(color: AppColors.athensGray1)),
-            prefixIcon: Padding(
-              padding: EdgeInsets.all(14.w),
-              child: FaIcon(FontAwesomeIcons.lock,
-                  size: 17.sp, color: AppColors.spunPearl),
-            ),
+            prefixIcon: widget.prefixIcon != null
+                ? Padding(
+                    padding: EdgeInsets.all(14.w),
+                    child: FaIcon(widget.prefixIcon,
+                        size: 17.sp, color: AppColors.spunPearl),
+                  )
+                : null,
             suffixIcon: widget.isPassword
                 ? GestureDetector(
                     onTap: () {

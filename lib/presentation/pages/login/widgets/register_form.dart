@@ -59,7 +59,7 @@ class _RegisterFormState extends State<RegisterForm> {
             controller: nameController,
             isPassword: false,
             forceValidate: _submitted,
-            prefixIcon: FontAwesomeIcons.lock,
+            prefixIcon: Icons.person,
             validator: (value) {
               if (value == null) return context.l10n!.pleaseenteryourname;
 
@@ -78,7 +78,7 @@ class _RegisterFormState extends State<RegisterForm> {
             controller: emailController,
             isPassword: false,
             forceValidate: _submitted,
-            prefixIcon: FontAwesomeIcons.lock,
+            prefixIcon: Icons.email,
             validator: (value) {
               if (value == null || value.isEmpty)
                 return context.l10n!.pleaseenteremail;
@@ -98,7 +98,7 @@ class _RegisterFormState extends State<RegisterForm> {
             controller: phoneNumberController,
             isPassword: false,
             forceValidate: _submitted,
-            prefixIcon: FontAwesomeIcons.lock,
+            prefixIcon: FontAwesomeIcons.phone,
             validator: (value) {
               if (value == null || value.isEmpty)
                 return context.l10n!.pleaseenteryourphonenumber;
@@ -117,7 +117,7 @@ class _RegisterFormState extends State<RegisterForm> {
             controller: ageController,
             isPassword: false,
             forceValidate: _submitted,
-            prefixIcon: FontAwesomeIcons.lock,
+            prefixIcon: FontAwesomeIcons.calendar,
             validator: (value) {
               if (value == null || value.isEmpty)
                 return context.l10n!.enteryourage;
