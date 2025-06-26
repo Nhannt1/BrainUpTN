@@ -28,6 +28,7 @@ dependencies:
   lottie: ^3.3.1
   font_awesome_flutter: ^10.8.0
   another_flushbar: ^1.12.30
+  audioplayers: ^6.5.0
   # Network
   retrofit: ^4.4.2
   dio: ^5.8.0+1
