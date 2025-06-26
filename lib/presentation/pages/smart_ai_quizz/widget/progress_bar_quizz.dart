@@ -1,15 +1,20 @@
-import 'package:brainup/presentation/resources/gen/colors.gen.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'package:brainup/presentation/resources/gen/colors.gen.dart';
+import 'package:brainup/shared/themes/chammy_text_styles.dart';
 
 class ProgressBarWidget extends StatelessWidget {
   final int currentQuestion;
   final int totalQuestions;
-
+  final VoidCallback ontapReset;
   const ProgressBarWidget({
-    super.key,
+    Key? key,
     required this.currentQuestion,
     required this.totalQuestions,
-  });
+    required this.ontapReset,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +30,27 @@ class ProgressBarWidget extends StatelessWidget {
               style: const TextStyle(fontWeight: FontWeight.w500),
             ),
             const Spacer(),
-            const Icon(Icons.pause_circle_outline, size: 20),
-            const SizedBox(width: 4),
-            const Text("Pause"),
+            GestureDetector(
+              onTap: ontapReset,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: AppColors.brightTurquoise,
+                    borderRadius: BorderRadius.circular(20)),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                  child: Row(
+                    children: [
+                      Icon(FontAwesomeIcons.rotateRight,
+                          size: 15, color: AppColors.white),
+                      SizedBox(width: 4),
+                      Text("Reset",
+                          style: BrainUpTextStyles.text12Bold
+                              .copyWith(color: AppColors.white)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 4),

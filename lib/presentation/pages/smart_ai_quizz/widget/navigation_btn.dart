@@ -3,7 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NavigationButtons extends StatelessWidget {
-  const NavigationButtons({super.key});
+  final VoidCallback ontapNext;
+  final VoidCallback ontapPre;
+
+  const NavigationButtons({
+    super.key,
+    required this.ontapNext,
+    required this.ontapPre,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +18,7 @@ class NavigationButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         ElevatedButton(
-          onPressed: () {},
+          onPressed: ontapPre,
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: 10),
             shape: RoundedRectangleBorder(
@@ -34,7 +41,7 @@ class NavigationButtons extends StatelessWidget {
           ),
         ),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: ontapNext,
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: 10),
             shape: RoundedRectangleBorder(
