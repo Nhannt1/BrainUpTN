@@ -40,7 +40,7 @@ class SmartAiQuizz extends StatelessWidget {
                 children: [
                   ProgressBarWidget(
                     currentQuestion: 2,
-                    totalQuestions: 8,
+                    totalQuestions: 10,
                   ),
                   SizedBox(
                     height: 12,
