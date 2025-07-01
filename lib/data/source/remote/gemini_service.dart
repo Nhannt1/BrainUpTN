@@ -3,11 +3,11 @@ import 'dart:io';
 
 import 'package:brainup/domain/flashcard_model/flashcard_model.dart';
 import 'package:brainup/domain/model_ai/message_model.dart';
-import 'package:brainup/presentation/pages/question/widgets/flash_card.dart';
+import 'package:brainup/domain/model_smart_quizz/model_smart_quizz.dart';
 import 'package:http/http.dart' as http;
 
 class GeminiService {
-  final String apiKey = 'AIzaSyCKmQOigqsb0y151f212Cc70AS5J7jVjsw';
+  final String apiKey = 'AIzaSyAZlEirhuDBV5vxV93a4BbY-I_IMA4B0sU';
 
   Future<String> generateSmart({
     required String prompt,
@@ -15,7 +15,7 @@ class GeminiService {
     File? imageFile,
   }) async {
     final url = Uri.parse(
-      'https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash-lite:generateContent?key=$apiKey',
+      'https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=$apiKey',
     );
     final headers = {'Content-Type': 'application/json'};
     final recentMessages = messages.length > 10
@@ -189,5 +189,74 @@ Yêu cầu:
       print("❌ Lỗi khi tạo câu hỏi đúng/sai: $e");
       return [];
     }
+  }
+
+  Future<List<ModelSmartQuizz>> generateOpenEndedQuestions(
+    String topicPrompt, {
+    List<String>? previousQuestions,
+  }) async {
+    final excludePrompt =
+        (previousQuestions != null && previousQuestions.isNotEmpty)
+            ? '''
+        - Không được trùng với các câu hỏi sau:
+        ${previousQuestions.join('\n')}
+        '''
+            : '';
+    final prompt = '''
+        Tạo 10 câu hỏi tự luận ngắn về chủ đề "$topicPrompt".
+        - Mỗi câu hỏi nên ngắn gọn và rõ ràng.
+        - Mỗi câu trả lời (đáp án mẫu) chỉ dài khoảng 3 đến 5 chữ.
+        - Chỉ đưa ra câu hỏi, KHÔNG kèm theo đáp án.
+        - Mỗi câu hỏi trên 1 dòng.
+        - Đi thẳng vào câu hỏi lun không đọc câu hỏi lại
+        - Không đánh số thứ tự
+        $excludePrompt
+        ''';
+
+    final responseText = await generateSmart(prompt: prompt, messages: []);
+    final questions = responseText
+        .split('\n')
+        .map((e) => e.trim())
+        .where((line) => line.isNotEmpty)
+        .map((q) => ModelSmartQuizz(question: q))
+        .toList();
+
+    return questions;
+  }
+
+  Future<Map<String, dynamic>> checkAnswerWithAI({
+    required String question,
+    required String userAnswer,
+  }) async {
+    final prompt = '''
+      Câu hỏi: $question
+      Người dùng trả lời: "$userAnswer"
+
+    - Hãy đưa ra câu trả lời đúng một cách rõ ràng nhưng không quá 5 từ, nếu đáp án đó dài quá thì cho...
+    - So sánh với câu trả lời của người dùng, nếu ý nghĩa tương đương hoặc gần đúng thì vẫn tính là ĐÚNG.
+    - Nếu câu trả lời của người dùng sai hoàn toàn thì mới cho là SAI.
+      Chỉ trả lời theo định dạng: 
+      Đáp án đúng: <đáp án đúng ngắn gọn tối đa 5 từ>. 
+      Kết quả: Đúng hoặc Sai.
+      ''';
+
+    final aiResponse = await generateSmart(
+      prompt: prompt,
+      messages: [],
+    );
+    final correctAnswerMatch =
+        RegExp(r"Đáp án đúng:\s*(.*?)(\.|\n)", caseSensitive: false)
+            .firstMatch(aiResponse);
+    final resultMatch = RegExp(r"Kết quả:\s*(Đúng|Sai)", caseSensitive: false)
+        .firstMatch(aiResponse);
+
+    final correctAnswer = correctAnswerMatch?.group(1)?.trim() ?? '';
+    final isCorrect = (resultMatch?.group(1)?.toLowerCase() == 'đúng');
+
+    return {
+      'correctAnswer': correctAnswer,
+      'isCorrect': isCorrect,
+      'raw': aiResponse,
+    };
   }
 }
