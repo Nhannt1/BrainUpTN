@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:brainup/domain/flashcard_model/flashcard_model.dart';
 import 'package:brainup/domain/model_ai/message_model.dart';
+import 'package:brainup/presentation/pages/question/widgets/flash_card.dart';
 import 'package:http/http.dart' as http;
 
 class GeminiService {
-  final String apiKey = 'AIzaSyBenwZ4frHSXfZ6xHNmCqvbmiunhJkgm6Y';
+  final String apiKey = 'AIzaSyCKmQOigqsb0y151f212Cc70AS5J7jVjsw';
 
   Future<String> generateSmart({
     required String prompt,
@@ -147,6 +149,44 @@ class GeminiService {
       return lines;
     } catch (e) {
       print("❌ Lỗi khi tạo gợi ý: $e");
+      return [];
+    }
+  }
+
+  Future<List<FlashcardModel>> generateTrueFalseQuestions(
+      String topicPrompt) async {
+    try {
+      final prompt = '''
+Hãy tạo danh sách 10 câu hỏi đúng/sai (True/False) về chủ đề: "$topicPrompt".
+
+Yêu cầu:
+- Mỗi câu hỏi nên ngắn gọn (tối đa 15 từ).
+- Định dạng mỗi dòng: Câu hỏi? | Đúng hoặc Câu hỏi? | Sai
+''';
+
+      final responseText = await generateSmart(
+        prompt: prompt,
+        messages: [],
+      );
+
+      final lines = responseText
+          .split('\n')
+          .map((line) => line.trim())
+          .where((line) => line.contains('|'))
+          .toList();
+
+      final flashcards = lines.map((line) {
+        final parts = line.split('|');
+        final answer = parts[1].trim().toLowerCase();
+        return FlashcardModel(
+          question: parts[0].trim(),
+          isCorrect: answer == 'đúng',
+        );
+      }).toList();
+
+      return flashcards;
+    } catch (e) {
+      print("❌ Lỗi khi tạo câu hỏi đúng/sai: $e");
       return [];
     }
   }
