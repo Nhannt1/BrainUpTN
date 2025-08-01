@@ -1,3 +1,4 @@
+import 'package:brainup/presentation/pages/archievement/archivement_page.dart';
 import 'package:brainup/presentation/pages/home/widgets/achievement_icon.dart';
 import 'package:brainup/presentation/resources/gen/colors.gen.dart';
 import 'package:brainup/shared/extensions/context_ext.dart';
@@ -5,6 +6,7 @@ import 'package:brainup/shared/themes/chammy_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class AchievementsSection extends StatelessWidget {
   @override
@@ -34,16 +36,21 @@ class AchievementsSection extends StatelessWidget {
           child: Row(
             children: [
               AchievementIcon(
+                ontap: () {
+                  context.push(AchievementsPage.rootLocation);
+                },
                 icon: FontAwesomeIcons.medal,
                 backgroundColor: [AppColors.melrose, AppColors.cornflowerBlue],
               ),
               SizedBox(width: 8.w),
               AchievementIcon(
+                ontap: () {},
                 icon: FontAwesomeIcons.trophy,
                 backgroundColor: [AppColors.lavenderPink, AppColors.frenchRose],
               ),
               SizedBox(width: 8.w),
               AchievementIcon(
+                ontap: () {},
                 icon: FontAwesomeIcons.solidStar,
                 backgroundColor: [AppColors.brightSun, AppColors.corn],
               ),
