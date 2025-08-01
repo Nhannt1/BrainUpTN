@@ -103,6 +103,24 @@ class AuthLogin {
       );
       final user = userCredential.user;
       if (user == null) return 'Không lấy được thông tin người dùng';
+      final userDoc = await _firestore.collection('users').doc(user.uid).get();
+      if (!userDoc.exists) {
+        await _firestore.collection('users').doc(user.uid).set({
+          'uid': user.uid,
+          'fullname': user.displayName ?? 'No name',
+          'email': user.email ?? 'email.com',
+          'image': user.photoURL ?? '',
+          'age': 0,
+          'createdAt': Timestamp.now(),
+          'achivement': 0,
+          'course': 0,
+          'totalPoints': 0,
+        });
+        print("🔥 Google user created in Firestore");
+      } else {
+        print("✅ Google user already exists");
+      }
+
       return null;
     } catch (e) {
       return 'Lỗi: $e';
